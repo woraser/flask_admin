@@ -22,6 +22,7 @@ app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
 migrate = Migrate(app, db)
 
+# start the app when execute command:python manage.py
 if __name__ == '__main__':
     app.run()
 
