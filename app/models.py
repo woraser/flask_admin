@@ -1,22 +1,38 @@
-from datetime import datetime
-import hashlib
-from werkzeug.security import generate_password_hash, check_password_hash
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-# from markdown import markdown
-# import bleach
-from flask import current_app, request, url_for
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from flask_login import UserMixin, AnonymousUserMixin
-from app.exceptions import ValidationError
-from . import db, login_manager
+from werkzeug.security import generate_password_hash, check_password_hash
+from peewee import *
 
+db = SqliteDatabase('./test3.db')
 
-class User(UserMixin, db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True, index=True)
-    password_hash = db.Column(db.String(128))
-    confirmed = db.Column(db.Boolean, default=False)
-    name = db.Column(db.String(64))
+def initDb():
+    db.create_tables([User], safe=True)
+    db.close()
 
+class BaseModel(Model):
+    class Meta:
+        database = db
+
+# 用户信息
+class User(UserMixin,BaseModel):
+    id = IntegerField(primary_key=True)
+    account = CharField(max_length=20)
+    pwd = CharField(max_length=20)
+    created_time = DateField()
+
+    def getUserByAccountAndPwd(self, account, pwd):
+        pwd_hash = generate_password_hash(pwd)
+        try:
+            user = User.get(User.account == account, User.pwd == pwd_hash)
+        except Exception:
+            user = None
+        return user
+
+    def updatePwd(self,account,new_pwd):
+        new_pwd_hash = generate_password_hash(new_pwd)
+        User.update(pwd=new_pwd_hash).where(User.id == account['id']).execute()
+        pass
 
 

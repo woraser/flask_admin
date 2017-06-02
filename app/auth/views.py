@@ -28,6 +28,13 @@ def unconfirmed():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        login_account = request.get_data("login_account")
+        login_pwd = request.get_data("login_pwd")
+        if User == None:
+            login_user(User, True)
+            redirect(url_for('main.index'))
+        pass
     return render_template('auth/login.html')
 
 
@@ -36,7 +43,7 @@ def login():
 def logout():
     logout_user()
     flash('You have been logged out.')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('login'))
 
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -146,13 +153,3 @@ def password_reset(token):
 #         else:
 #             flash('Invalid email or password.')
 #     return render_template("auth/change_email.html", form=form)
-
-
-@auth.route('/change-email/<token>')
-@login_required
-def change_email(token):
-    if current_user.change_email(token):
-        flash('Your email address has been updated.')
-    else:
-        flash('Invalid request.')
-    return redirect(url_for('main.index'))

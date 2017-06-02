@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+# from app.models import User
 COV = None
 if os.environ.get('FLASK_COVERAGE'):
     import coverage
@@ -23,8 +24,18 @@ app = create_app('default')
 manager = Manager(app)
 migrate = Migrate(app, db)
 
+# def make_shell_context():
+#     print 123
+#     return dict(app=app, db=db, User=User)
+#
+# manager.add_command("shell", Shell(make_context=make_shell_context))
+# manager.add_command('db', MigrateCommand)
+
+
+
+
 # start the app when execute command:python manage.py
 if __name__ == '__main__':
-    app.run()
+    manager.run()
 
 
