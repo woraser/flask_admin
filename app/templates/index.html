@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}index{% endblock %}
+
+{% block page_content %}
+<div class="content-body" style="padding-top: 5px;">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            CPU 使用率
+                        </div>
+                        <div class="panel-body"  >
+                            <div id="cpu-pie-chart" style="height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            内存 使用率
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="ram-pie-chart"   style="height:400px"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+        </div>
+    </div>
+</div>
+{% block scripts %}
+      {{ super() }}
+      <script src="../static/js/echarts.simple.min.js"></script>
+      <script type="text/javascript">
+      var cpuChart = echarts.init(document.getElementById('cpu-pie-chart'));
+      var ramChart = echarts.init(document.getElementById('ram-pie-chart'));
+      var option_cpu = {};
+      var option_ram = {};
+{#      var reloadPie = function(){#}
+{#          $.ajax({#}
+{#                url: '/systemInfo',#}
+{#                type: 'get',#}
+{#                success: function (data) {#}
+{##}
+{#                    var cpu_usage = data.cpu_usage;#}
+{#                    var cpu_left = 100-parseFloat(cpu_usage);#}
+{#                    var ram_usage = data.ram_usage;#}
+{#                    var ram_left = 100-parseFloat(ram_usage);#}
+{#                     option_cpu = {#}
+{#                            title : {#}
+{#                                text: 'CPU使用率',#}
+{#                                x:'center'#}
+{#                            },#}
+{#                            tooltip : {#}
+{#                                trigger: 'item',#}
+{#                                formatter: "{a} <br/>{b} : {c} ({d}%)"#}
+{#                            },#}
+{#                            calculable : true,#}
+{#                            series : [#}
+{#                                {#}
+{#                                    name:'使用率',#}
+{#                                    type:'pie',#}
+{#                                    radius : '55%',#}
+{#                                    center: ['50%', '60%'],#}
+{#                                    data:[#}
+{#                                        {value:cpu_usage, name:'已使用'},#}
+{#                                        {value:cpu_left, name:'未使用'},#}
+{#                                    ],#}
+{#                                    itemStyle:{#}
+{#                                        normal:{#}
+{#                                              label:{#}
+{#                                                show: true,#}
+{#                                                formatter: '{b} : {c} ({d}%)'#}
+{#                                              },#}
+{#                                              labelLine :{show:true}#}
+{#                                            }#}
+{#                                        }#}
+{#                                }#}
+{#                            ]#}
+{#                        };#}
+{#                     cpuChart.setOption(option_cpu);#}
+{#//                     RAM#}
+{#                    option_ram = {#}
+{#                            title : {#}
+{#                                text: 'RAM使用率',#}
+{#                                x:'center'#}
+{#                            },#}
+{#                            tooltip : {#}
+{#                                trigger: 'item',#}
+{#                                formatter: "{a} <br/>{b} : {c} ({d}%)"#}
+{#                            },#}
+{#                            calculable : true,#}
+{#                            series : [#}
+{#                                {#}
+{#                                    name:'使用率',#}
+{#                                    type:'pie',#}
+{#                                    radius : '55%',#}
+{#                                    center: ['50%', '60%'],#}
+{#                                    data:[#}
+{#                                        {value:ram_usage, name:'已使用'},#}
+{#                                        {value:ram_left, name:'未使用'},#}
+{#                                    ],#}
+{#                                    itemStyle:{#}
+{#                                        normal:{#}
+{#                                              label:{#}
+{#                                                show: true,#}
+{#                                                formatter: '{b} : {c} ({d}%)'#}
+{#                                              },#}
+{#                                              labelLine :{show:true}#}
+{#                                            }#}
+{#                                        }#}
+{#                                }#}
+{#                            ]#}
+{#                        };#}
+{#                     ramChart.setOption(option_ram);#}
+{#                }#}
+{#       });#}
+{#      };#}
+{#      reloadPie();#}
+{#      setInterval("reloadPie()", 1000);#}
+
+</script>
+{% endblock %}
+
+{% endblock %}
