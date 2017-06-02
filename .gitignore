@@ -5,3 +5,4 @@ app/api/__init__.pyc
 *.pyc
 *.pyc
 *.pyc
+.idea/workspace.xml
