@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -27,7 +30,11 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = './test3.db'
+    SQLALCHEMY_DATABASE_URI = './test3.db',
+    JOB_QUARTZ = {
+        # test 10s一次
+        'test': 10,
+    }
 
 
 config = {

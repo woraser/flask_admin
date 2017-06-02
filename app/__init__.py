@@ -4,6 +4,7 @@ from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from config import config
 from models import initDb
+from main.quartzJob import sched
 
 bootstrap = Bootstrap()
 db = initDb()
@@ -19,6 +20,7 @@ def create_app(config_name):
 
     bootstrap.init_app(app)
     login_manager.init_app(app)
+    sched.start()
 
     # register routes
     from .main import main as main_blueprint
