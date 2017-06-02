@@ -38,15 +38,20 @@
     </column>
     <column id="12" parent="4" name="pwd">
       <Position>2</Position>
-      <DataType>VARCHAR(20)|0</DataType>
+      <DataType>VARCHAR(200)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="13" parent="4" name="created_time">
+    <column id="13" parent="4" name="pwd_hash">
       <Position>3</Position>
+      <DataType>VARCHAR(200)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="14" parent="4" name="created_time">
+      <Position>4</Position>
       <DataType>DATE|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="14" parent="4">
+    <key id="15" parent="4">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
