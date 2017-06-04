@@ -14,3 +14,7 @@ app/api/__init__.pyc
 .idea/misc.xml
 
 .idea/workspace.xml
+
+.idea/workspace.xml
+
+*.xml
