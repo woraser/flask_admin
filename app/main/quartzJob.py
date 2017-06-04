@@ -17,7 +17,7 @@ class Quartz(object):
         print 'hello world'
         pass
 
-    def addJobDynamic(self,conf_dict = {}):
+    def addJobDynamic(self, conf_dict={}):
         sched = BackgroundScheduler()
         job_dict = conf_dict.JOB_QUARTZ
         for k, v in job_dict.items():
