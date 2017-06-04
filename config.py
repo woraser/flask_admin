@@ -33,7 +33,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = './test3.db',
     JOB_QUARTZ = {
         # test 10s一次
-        'test': 10,
+        'my_job': 10,
     }
 
 
