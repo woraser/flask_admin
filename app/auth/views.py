@@ -1,47 +1,36 @@
-from flask import render_template, redirect, request, url_for, flash
-from flask_login import login_user, logout_user, login_required, \
-    current_user
+from flask import render_template, redirect, request, url_for, flash, session
+# from flask_login import login_user, logout_user, login_required, \
+#     current_user
 from . import auth
 from .. import db
 from ..models import User
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm,\
     PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm
+import json
 
-
-@auth.before_app_request
-def before_request():
-    if current_user.is_authenticated:
-        current_user.ping()
-        if not current_user.confirmed \
-                and request.endpoint \
-                and request.endpoint[:5] != 'auth.' \
-                and request.endpoint != 'static':
-            return redirect(url_for('auth.unconfirmed'))
-
-
-@auth.route('/unconfirmed')
-def unconfirmed():
-    if current_user.is_anonymous or current_user.confirmed:
-        return redirect(url_for('main.index'))
-    return render_template('auth/unconfirmed.html')
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    reponse = {}
+    reponse["status"] = 0
     if request.method == 'POST':
-        login_account = request.get_data("login_account")
-        login_pwd = request.get_data("login_pwd")
-        user = User.getUserByAccountAndPwd(login_account,login_pwd)
-        if user == None:
-            login_user(User, True)
-            redirect(url_for('main.index'))
-        pass
+        post_data = request.values
+        login_account = str(post_data['login_account'])
+        login_pwd = str(post_data['login_pwd'])
+        user = User.getUserByAccountAndPwd(login_account, login_pwd)
+        if user is not None:
+            # login_user(user, True)
+            session.setdefault('is_login', True)
+            session.setdefault('user', json.dumps(user._data))
+            reponse['status'] = 1
+            reponse['data'] = '/index'
+            return json.dumps(reponse)
     return render_template('auth/login.html')
 
 
 @auth.route('/logout')
-@login_required
 def logout():
-    logout_user()
+    session.clear()
     flash('You have been logged out.')
     return redirect(url_for('login'))

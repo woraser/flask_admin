@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}cronSetting{% endblock %}
+{% block head %}
+    {{ super() }}
+       <link href="../static/css/dataTables.bootstrap.min.css" rel="stylesheet">
+{% endblock %}
+{% block page_content %}
+<div class="content-body" style="padding-top: 5px;">
+    <table id="sensorDiv" style="width: 100%">
+    </table>
+</div>
+{% block scripts %}
+      {{ super() }}
+      <script src="../static/js/jquery.dataTables.min.js"></script>
+      <script src="../static/js/dataTables.bootstrap.js"></script>
+      <script type="text/javascript">
+      $(document).ready(function() {
+        $('#sensorDiv').dataTable({
+            "processing": true,
+            "searching":false,
+            "bLengthChange":false,
+            "ajax": "/sensorTableData",
+            "columns": [
+                { "title":"id","data": "id","orderable":false },
+                { "title":"序列号","data": "no","orderable":false },
+                { "title":"传感器名称","data": "name","orderable":false },
+                { "title":"采集周期","data": "cycle","orderable":false }
+            ]
+        });
+      })
+</script>
+{% endblock %}
+
+{% endblock %}

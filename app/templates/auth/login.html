@@ -43,28 +43,37 @@
             </div>
         </div>
     </div>
-{#    <script type="text/javascript">#}
-{#        $(document).ready(function() {#}
-{#           $("#login_btn").click(function(){#}
-{#               var account = $("#accunt").val();#}
-{#               var password = $("#password").val();#}
-{#               if(!account || !password){#}
-{#                   alert("请先输入账号和密码!");#}
-{#                   return;#}
-{#               }#}
-{#               var  data = {#}
-{#                   "login_account":account,#}
-{#                   "login_pwd":password#}
-{#               };#}
-{#               postApi('/doLogin',data,function(err, result){#}
-{#                   if(result.status ==0){#}
-{#                          alert("账号登录失败，请确认账号和密码是否正确");#}
-{#                      }else{#}
-{#                          window.location.href = result.data;#}
-{#                      }#}
-{#               });#}
-{#           });#}
-{#        });#}
-{##}
-{#    </script>#}
+{% block scripts %}
+        {{ super() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $("#login_btn").click(function(){
+               var account = $("#accunt").val();
+               var password = $("#password").val();
+               if(!account || !password){
+                   alert("请先输入账号和密码!");
+                   return;
+               }
+               var  data = {
+                   "login_account":account,
+                   "login_pwd":password
+               };
+               $.ajax({
+                      type: 'POST',
+                      url: '/auth/login',
+{#                      contentType:'application/json',#}
+                      data: data,
+                      dataType: 'json',
+                      success: function(result){
+                         if(result.status ==0){
+                          alert("账号登录失败，请确认账号和密码是否正确");
+                      }else{
+                          window.location.href = result.data;
+                      }
+                      }
+                    });
+           });
+        });
+    </script>
+{% endblock %}
 {% endblock %}

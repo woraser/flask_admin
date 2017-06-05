@@ -23,17 +23,20 @@ class User(UserMixin,BaseModel):
     pwd_hash = CharField(max_length=200)
     created_time = DateField()
 
-    def getUserByAccountAndPwd(self, account, pwd):
-        pwd_hash = generate_password_hash(pwd)
+    @staticmethod
+    def getUserByAccountAndPwd(account, pwd):
+        user_instance = User()
+        # pwd_hash = generate_password_hash(pwd)
         try:
-            user = User.get(User.account == account, User.pwd == pwd_hash)
+            user = user_instance.get(User.account == account and  User.pwd == pwd)
         except Exception:
             user = None
         return user
 
-    def updatePwd(self,account,new_pwd):
-        new_pwd_hash = generate_password_hash(new_pwd)
-        User.update(pwd=new_pwd_hash).where(User.id == account['id']).execute()
+    def updatePwd(self, account, new_pwd):
+        user_instance = User()
+        # new_pwd_hash = generate_password_hash(new_pwd)
+        User.update(pwd=new_pwd).where(User.id == account['id']).execute()
         pass
 
 
