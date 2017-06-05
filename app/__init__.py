@@ -4,11 +4,12 @@ from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from config import config
 from models import initDb
-from main.quartzJob import sched
+from main.quartzJob import Quartz
 
 bootstrap = Bootstrap()
 db = initDb()
 login_manager = LoginManager()
+quartz = Quartz()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 
@@ -20,6 +21,7 @@ def create_app(config_name):
 
     bootstrap.init_app(app)
     login_manager.init_app(app)
+    sched = quartz.addJobDynamic(config[config_name])
     sched.start()
 
     # register routes

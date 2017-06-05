@@ -8,23 +8,32 @@ __author__ = 'chen hui'
 
 class Quartz(object):
 
+    # sched = BackgroundScheduler()
+
     def __init__(self):
         pass
-
-    sched = BackgroundScheduler()
 
     def my_job(self):
         print 'hello world'
         pass
 
-sched = BackgroundScheduler()
-sched.add_job(getattr(Quartz(), 'my_job'), 'interval', seconds=5)
-    # def addJobForSched(self, dict={}):
-    #     for k, v in dict:
-    #
-    #         pass
-    #
-    # def initSched(self, config):
-    #     pass
+    def addJobDynamic(self, conf_dict={}):
+        sched = BackgroundScheduler()
+        job_dict = conf_dict.JOB_QUARTZ
+        for k, v in job_dict.items():
+            if getattr(Quartz(), k) != None:
+               sched.add_job(getattr(Quartz(), k), 'interval', seconds=int(v))
+        return sched
+
+
+# sched = BackgroundScheduler()
+# sched.add_job(getattr(Quartz(), 'my_job'), 'interval', seconds=5)
+#     # def addJobForSched(self, dict={}):
+#     #     for k, v in dict:
+#     #
+#     #         pass
+#     #
+#     # def initSched(self, config):
+#     #     pass
 
 
