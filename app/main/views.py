@@ -45,5 +45,13 @@ def sensorIndex():
 
 @main.route('/sensorTableData', methods=['GET', 'POST'])
 def sensorTableData():
+    data = []
+    data.append({
+        'id': '1',
+        'no': '2',
+        'name': '3',
+        'cycle': '4'
+    })
     response = {}
+    response['data'] = data
     return json.dumps(response)
