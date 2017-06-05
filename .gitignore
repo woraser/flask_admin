@@ -1,27 +1,5 @@
 
 *.pyc
-*.pyc
-app/api/__init__.pyc
-*.pyc
-*.pyc
-*.pyc
-.idea/workspace.xml
-<<<<<<< HEAD
-.idea/workspace.xml
-=======
-
-*.pyc
-
 *.iml
-
-.idea/misc.xml
-
-.idea/workspace.xml
-
-.idea/workspace.xml
-
-*.xml
->>>>>>> 81c19bfc7ae4b47bb9e513369ef25d0769a063d5
-*.xml
-*.xml
+.idea/*
 *.xml
