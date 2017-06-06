@@ -21,8 +21,8 @@ class Quartz(object):
         sched_config = {
              'timezone': 'Asia/Shanghai'
         }
+        # set default timezone
         sched = BackgroundScheduler(gconfig=sched_config, prefix=None)
-        # sched._configure(sched_config)
         config = ConfigParser.ConfigParser()
         config.readfp(open('config.ini'))
         sections = config.sections()

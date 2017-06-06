@@ -12,7 +12,7 @@ def create_app():
     app = Flask(__name__)
     bootstrap.init_app(app)
     sched = quartz.addJobDynamic()
-    sched.start()
+    # sched.start()
 
     # register routes
     from .main import main as main_blueprint
