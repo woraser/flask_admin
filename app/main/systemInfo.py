@@ -38,7 +38,7 @@ def getCpuUsg():
 
 def getCPUtemperature():
     res = os.popen('vcgencmd measure_temp').readline()
-    return(res.replace("temp=",""). replace("'C\n",""))
+    return(res.replace("tmp=",""). replace("'C\n",""))
 
 
 # Return RAM information (unit=kb) in a list

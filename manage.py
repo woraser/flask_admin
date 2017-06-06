@@ -17,12 +17,12 @@ if os.path.exists('.env'):
 from app import create_app, db
 # from app.models import User, Follow, Role, Permission, Post, Comment
 from flask_script import Manager, Shell
-from flask_migrate import Migrate, MigrateCommand
+# from flask_migrate import Migrate, MigrateCommand
 
 # app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-app = create_app('default')
+app = create_app()
 manager = Manager(app)
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
 # def make_shell_context():
 #     print 123
@@ -36,6 +36,6 @@ migrate = Migrate(app, db)
 
 # start the app when execute command:python manage.py
 if __name__ == '__main__':
-    # manager.run()
-      app.run()
+    manager.run()
+      # app.run()
 

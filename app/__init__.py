@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
 # from flask_sqlalchemy import SQLAlchemy
-from config import config
 from models import initDb, User
 from main.quartzJob import Quartz
 
@@ -9,13 +8,11 @@ bootstrap = Bootstrap()
 db = initDb()
 quartz = Quartz()
 
-def create_app(config_name):
+def create_app():
     app = Flask(__name__)
-    app.config.from_object(config[config_name])
-    config[config_name].init_app(app)
     bootstrap.init_app(app)
-    sched = quartz.addJobDynamic(config[config_name])
-    # sched.start()
+    sched = quartz.addJobDynamic()
+    sched.start()
 
     # register routes
     from .main import main as main_blueprint

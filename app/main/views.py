@@ -1,8 +1,6 @@
 from flask import render_template, redirect, url_for, abort, flash, request,\
-    current_app, make_response, session, json
-from flask_sqlalchemy import get_debug_queries
+    current_app, session, json
 from . import main
-from ..models import User
 
 @main.before_app_request
 def before_request():
@@ -11,13 +9,14 @@ def before_request():
 
 @main.after_app_request
 def after_request(response):
-    for query in get_debug_queries():
-        if query.duration >= current_app.config['FLASKY_SLOW_DB_QUERY_TIME']:
-            current_app.logger.warning(
-                'Slow query: %s\nParameters: %s\nDuration: %fs\nContext: %s\n'
-                % (query.statement, query.parameters, query.duration,
-                   query.context))
-    return response
+    pass
+    # for query in get_debug_queries():
+    #     if query.duration >= current_app.config['FLASKY_SLOW_DB_QUERY_TIME']:
+    #         current_app.logger.warning(
+    #             'Slow query: %s\nParameters: %s\nDuration: %fs\nContext: %s\n'
+    #             % (query.statement, query.parameters, query.duration,
+    #                query.context))
+    # return response
 
 
 @main.route('/shutdown')
