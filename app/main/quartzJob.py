@@ -18,7 +18,11 @@ class Quartz(object):
         pass
 
     def addJobDynamic(self):
-        sched = BackgroundScheduler()
+        sched_config = {
+             'timezone': 'Asia/Shanghai'
+        }
+        sched = BackgroundScheduler(gconfig=sched_config, prefix=None)
+        # sched._configure(sched_config)
         config = ConfigParser.ConfigParser()
         config.readfp(open('config.ini'))
         sections = config.sections()
@@ -32,19 +36,8 @@ class Quartz(object):
             pass
         return sched
 
-
-# sched = BackgroundScheduler()
-# sched.add_job(getattr(Quartz(), 'my_job'), 'interval', seconds=5)
-#     # def addJobForSched(self, dict={}):
-#     #     for k, v in dict:
-#     #
-#     #         pass
-#     #
-#     # def initSched(self, config):
-#     #     pass
-
 if __name__ == '__main__':
     q = Quartz()
-    q.addJobDynamic()
+    q.addJobDynamic().start()
 
 

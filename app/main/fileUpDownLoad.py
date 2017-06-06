@@ -49,7 +49,7 @@ if __name__ == '__main__':
         json_array = json.loads(res)
         json_obj = json_array[0]
         object_id = json_obj['objectId']
-        f = open('../static/tmp/text12.ini', 'w')
+        f = open('static/tmp/text12.ini', 'w')
         fileDownLoad("http://10.2.0.135:8080/fileDownload/%s"%object_id, f)
         f.close()
     print res
