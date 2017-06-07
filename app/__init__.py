@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
-# from flask_sqlalchemy import SQLAlchemy
 from models import initDb, User
 from main.quartzJob import Quartz
 
@@ -10,6 +9,7 @@ quartz = Quartz()
 
 def create_app():
     app = Flask(__name__)
+    app.secret_key = 'hard to guessing'
     bootstrap.init_app(app)
     sched = quartz.addJobDynamic()
     # sched.start()

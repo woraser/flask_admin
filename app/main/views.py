@@ -1,5 +1,4 @@
-from flask import render_template, redirect, url_for, abort, flash, request,\
-    current_app, session, json
+from flask import render_template, json, session, redirect, url_for, request
 from . import main
 
 @main.before_app_request
@@ -9,26 +8,7 @@ def before_request():
 
 @main.after_app_request
 def after_request(response):
-    pass
-    # for query in get_debug_queries():
-    #     if query.duration >= current_app.config['FLASKY_SLOW_DB_QUERY_TIME']:
-    #         current_app.logger.warning(
-    #             'Slow query: %s\nParameters: %s\nDuration: %fs\nContext: %s\n'
-    #             % (query.statement, query.parameters, query.duration,
-    #                query.context))
-    # return response
-
-
-@main.route('/shutdown')
-def server_shutdown():
-    if not current_app.testing:
-        abort(404)
-    shutdown = request.environ.get('werkzeug.server.shutdown')
-    if not shutdown:
-        abort(500)
-    shutdown()
-    return 'Shutting down...'
-
+    return response
 
 @main.route('/', methods=['GET', 'POST'])
 def index():

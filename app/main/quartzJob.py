@@ -3,7 +3,6 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 import commons, ConfigParser, json
 # http://quanjie.leanote.com/post/Python%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E6%A8%A1%E5%9D%97-%E2%80%93-APScheduler-2
-# get system info by psutil
 __author__ = 'chen hui'
 
 class Quartz(object):
@@ -35,9 +34,9 @@ class Quartz(object):
                 pass;
             pass
         return sched
-
-if __name__ == '__main__':
-    q = Quartz()
-    q.addJobDynamic().start()
-
-
+#
+# if __name__ == '__main__':
+#     q = Quartz()
+#     q.addJobDynamic().start()
+#
+#
