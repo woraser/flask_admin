@@ -8,7 +8,7 @@ from peewee import *
 db = SqliteDatabase('./test3.db')
 
 def initDb():
-    db.create_tables([User], safe=True)
+    db.create_tables([User, SensorData], safe=True)
     db.close()
 
 class BaseModel(Model):
@@ -40,3 +40,17 @@ class User(UserMixin,BaseModel):
         pass
 
 
+# 传感器数据采集表
+class SensorData(BaseModel):
+    id = IntegerField(primary_key=True)
+    no = CharField(max_length=20)
+    val = CharField(max_length=20)
+    created_time = IntegerField()
+    is_post = BooleanField(verbose_name='是否已推送', default=False)
+
+
+class EngineerEmail(baseModel):
+    id = IntegerField(primary_key=True)
+    account = CharField(max_length=200)
+    user_name = CharField(max_length=100)
+    is_used = BooleanField(verbose_name='是否启用', default=True)

@@ -12,10 +12,6 @@ class Quartz(object):
     def __init__(self):
         pass
 
-    def my_job(self):
-        print 'hello world'
-        pass
-
     def addJobDynamic(self):
         sched_config = {
              'timezone': 'Asia/Shanghai'
@@ -31,9 +27,21 @@ class Quartz(object):
                 job_time = config.get(i, 'job_time')
                 if job_name is not None and job_time is not None and getattr(Quartz(), job_name) != None:
                     sched.add_job(getattr(Quartz(), job_name), 'interval', seconds=int(job_time))
-                pass;
+                pass
             pass
         return sched
+
+
+    def my_job(self):
+        print 'hello world'
+        pass
+
+
+    def getTestSensorData(self):
+
+
+
+        pass
 #
 # if __name__ == '__main__':
 #     q = Quartz()

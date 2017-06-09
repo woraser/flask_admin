@@ -1,6 +1,6 @@
 from flask import render_template, json, session, redirect, url_for, request
 from . import main
-
+import sensorCollect
 @main.before_app_request
 def before_request():
     if str(request.url_rule) != '/auth/login' and session.get('is_login') is None:
@@ -24,13 +24,18 @@ def sensorIndex():
 
 @main.route('/sensorTableData', methods=['GET', 'POST'])
 def sensorTableData():
-    data = []
+    # data = []
     data.append({
         'id': '1',
         'no': '2',
         'name': '3',
         'cycle': '4'
     })
-    response = {}
+    # response = {}
     response['data'] = data
     return json.dumps(response)
+
+@main.route('/getSensorData', methods=['GET'])
+def getSensorData():
+    sensorCollect.getTestData()
+    pass

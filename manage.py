@@ -14,6 +14,7 @@ if os.path.exists('.env'):
         if len(var) == 2:
             os.environ[var[0]] = var[1]
 
+
 from app import create_app, db
 # from app.models import User, Follow, Role, Permission, Post, Comment
 from flask_script import Manager, Shell
@@ -37,5 +38,5 @@ manager = Manager(app)
 # start the app when execute command:python manage.py
 if __name__ == '__main__':
     manager.run()
-      # app.run(debug=True)
+    #   app.run(debug=True)
 
