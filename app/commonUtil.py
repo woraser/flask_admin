@@ -4,7 +4,7 @@ import importlib
 from decoratorUtil import catchDbException
 
 # 将peewee查询对象转化为dict
-def convertObjToDict(objs,cls):
+def convertDbObjToDict(objs, cls):
     dict_array = []
     fields = getFieldsFromModelCls(cls)
     for obj in objs:

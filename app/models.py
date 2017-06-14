@@ -32,29 +32,40 @@ class User(UserMixin, BaseModel):
             user = None
         return user
 
-    def updatePwd(self, account, new_pwd):
-        user_instance = User()
-        # new_pwd_hash = generate_password_hash(new_pwd)
-        User.update(pwd=new_pwd).where(User.id == account['id']).execute()
-        pass
+# 传感器数据表
+class Sensor(BaseModel):
+    id = IntegerField(primary_key=True)
+    sensor_no = CharField(verbose_name='传感器序列号', max_length=200)
+    sensor_name = CharField(verbose_name='传感器名称', max_length=200)
+    job_name = CharField(verbose_name='定时采集任务名称', max_length=200)
+    job_time = IntegerField(verbose_name='定时任务周期', default=60)
+    rel_equ = CharField(verbose_name='关联设备名称', max_length=200)
+    max_limit = CharField(verbose_name='上限值', max_length=200)
+    min_limit = CharField(verbose_name='下限值', max_length=200)
+    type = CharField(verbose_name='类型名称', max_length=200)
+    interface = CharField(verbose_name='接口名称', max_length=200)
+    is_used = BooleanField(verbose_name='是否启用', default=True)
 
 
 # 传感器数据采集表
 class SensorData(BaseModel):
     id = IntegerField(primary_key=True)
-    no = CharField(max_length=20)
-    val = CharField(max_length=20)
-    created_time = IntegerField()
+    sensor_no = CharField(verbose_name='传感器序列号', max_length=20)
+    val = CharField(verbose_name='采集值', max_length=20)
+    created_time = IntegerField(verbose_name='创建时间')
     is_post = BooleanField(verbose_name='是否已推送', default=False)
 
-
+# 收件人邮箱
 class EngineerEmail(BaseModel):
     id = IntegerField(primary_key=True)
-    account = CharField(max_length=200)
-    user_name = CharField(max_length=100)
+    account = CharField(verbose_name='收件邮箱', max_length=200)
+    user_name = CharField(verbose_name='收件人名称', max_length=100)
     is_used = BooleanField(verbose_name='是否启用', default=True)
+    created_time = DateField(verbose_name='创建时间')
 
-class systemInfo(BaseModel):
+# 系统运行监控数据
+class SystemInfo(BaseModel):
     id = IntegerField(primary_key=True)
-    cpu_usage = CharField(max_length=20)
-    mem_usage = CharField(max_length=20)
+    cpu_usage = FloatField(verbose_name='CPU使用率')
+    mem_usage = FloatField(verbose_name='内存使用率')
+    collect_time = DateField(verbose_name='采集时间')
