@@ -22,7 +22,7 @@ class Quartz(object):
         config.readfp(open('config.ini'))
         sections = config.sections()
         for i in sections:
-            if str(i).startswith('sensor'):
+            if str(i).startswith('quartzJob'):
                 job_name = config.get(i, 'job_name')
                 job_time = config.get(i, 'job_time')
                 if job_name is not None and job_time is not None and getattr(Quartz(), job_name) != None:

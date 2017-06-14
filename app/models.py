@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask_login import UserMixin, AnonymousUserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 from peewee import *
 
 db = SqliteDatabase('./test3.db')
@@ -16,7 +15,7 @@ class BaseModel(Model):
         database = db
 
 # 用户信息
-class User(UserMixin,BaseModel):
+class User(UserMixin, BaseModel):
     id = IntegerField(primary_key=True)
     account = CharField(max_length=20)
     pwd = CharField(max_length=200)
@@ -49,8 +48,13 @@ class SensorData(BaseModel):
     is_post = BooleanField(verbose_name='是否已推送', default=False)
 
 
-class EngineerEmail(baseModel):
+class EngineerEmail(BaseModel):
     id = IntegerField(primary_key=True)
     account = CharField(max_length=200)
     user_name = CharField(max_length=100)
     is_used = BooleanField(verbose_name='是否启用', default=True)
+
+class systemInfo(BaseModel):
+    id = IntegerField(primary_key=True)
+    cpu_usage = CharField(max_length=20)
+    mem_usage = CharField(max_length=20)
