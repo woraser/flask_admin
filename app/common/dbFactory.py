@@ -15,7 +15,7 @@ def deleteByClsAndId(cla_name, identity=None):
     cls = getModelClsByName(cla_name)
     return User.delete().where(cls.id == identity).execute()
 
-#根据id删除数据
+#根据id插入数据
 def insertByCls(cla_name, data=None):
     cls = getModelClsByName(cla_name)
     return cls.insert(data).execute()

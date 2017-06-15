@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# tip:http://homeway.me/2015/04/29/openwrt-develop-base-util/
 import os
 
 # get system info by psutil

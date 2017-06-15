@@ -31,9 +31,10 @@ def getSyncDbData():
     pass
 
 
-# 获取传感器采集数据 数据上线 200
+# 获取传感器采集数据 数据上限 200
 def getSyncSensorData(limit=200):
     cursor = SensorData.select().where(SensorData.is_post==False).limit(limit)
+    return cursor
     pass
 
 
