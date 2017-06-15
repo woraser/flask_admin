@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+from app.main.configSingle import ConfigObj
 # from app.models import User
 COV = None
 if os.environ.get('FLASK_COVERAGE'):

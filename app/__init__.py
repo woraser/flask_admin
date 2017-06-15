@@ -2,11 +2,12 @@ from flask import Flask
 from flask_bootstrap import Bootstrap
 from models import initDb, User
 from main.quartzJob import Quartz
+from main import configSingle
 
 bootstrap = Bootstrap()
 db = initDb()
 quartz = Quartz()
-
+configSingle = configSingle.ConfigObj()
 def create_app():
     app = Flask(__name__)
     app.secret_key = 'hard to guessing'

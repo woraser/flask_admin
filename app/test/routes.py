@@ -21,5 +21,13 @@ def testpeewee():
     pass
 
 
+@test.route("/testGetSystemInfo")
+def testGetSystemInfo():
+
+    return "success"
+    pass
+
+
+
 
 

@@ -8,11 +8,14 @@ from ..common.dbFactory import queryTotalByCls
 from ..models import SensorData
 from ..decoratorUtil import catchDbException
 from ..commonUtil import convertDbObjToDict
+from ..main.configSingle import ConfigObj
 import requests, json
 
 def post_db_data():
+    domain_address = ConfigObj().get("internet_conf", 'remote_address')
+    post_url = ""
     post_data = getSyncDbData()
-    requests.post("", json.dumps(post_data))
+    requests.post(post_url, json.dumps(post_data))
     pass
 
 
