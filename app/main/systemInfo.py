@@ -15,9 +15,10 @@ def getRAMinfo():
     while 1:
         i = i + 1
         line = p.readline()
-        if i==2:
-            return( line.split()[1:4])
+        if i == 2:
+            return(line.split()[1:4])
 
+# 获取内存使用率
 def getRamUsage():
     RAM_stats = getRAMinfo()
     RAM_total = round(int(RAM_stats[0]) / 1000, 1)
