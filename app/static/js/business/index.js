@@ -4,6 +4,9 @@
 
 var dashboardController = {
 	init:function(){
+		$.get("/systemLineInfo", function(result){
+		 });
+
 		var cpuPie = dashboardController.cpuPieInit();
 		var ramPie = dashboardController.ramPieInit();
 		setInterval(function () {

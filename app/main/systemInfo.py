@@ -3,6 +3,7 @@
 # tip:http://homeway.me/2015/04/29/openwrt-develop-base-util/
 # Title:系统级别参数
 from app.main import configSingle
+from app.common.dbFactory import getTablePageByCls
 import os
 
 # get system info by psutil
@@ -55,5 +56,11 @@ def getDashboard():
         "runtime": int(200400 / 60 / 60)
     }
     return dashboard_dict
+    pass
+
+def getSystemHistory(limit=500):
+    orderBy = ('collect_time', 'desc')
+    cursor = getTablePageByCls("SystemInfo", limit=limit, order=orderBy)
+    return cursor
     pass
 

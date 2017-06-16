@@ -32,3 +32,8 @@ def getSystemInfo():
     }
     return json.dumps(res)
 
+@main.route('/systemLineInfo')
+def getSystemInfoHistory():
+    response = systemInfo.getSystemHistory()
+    return json.dumps(response)
+

@@ -19,12 +19,12 @@ def recordSystemInfo():
     # row = {
     #     "cpu_usage": 100-int(cpu_free),
     #     "ram_usage": ram_usage,
-    #     "collect_time": datetime.now()
+    #     "collect_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     # }
     row = {
         "cpu_usage": random.randint(0, 100),
         "ram_usage": random.randint(0, 100),
-        "collect_time": datetime.now()
+        "collect_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
     insertByCls("SystemInfo", row)
     pass

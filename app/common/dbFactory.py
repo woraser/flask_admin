@@ -21,9 +21,9 @@ def insertByCls(cla_name, data=None):
     return cls.insert(data).execute()
 
 # 根据model类名 获得分页数据
-def getTablePageByCls(cla_name, offset=0, limit=10):
+def getTablePageByCls(cla_name, offset=0, limit=10,order=None):
     cls = getModelClsByName(cla_name)
-    data_array = queryTableByCls(cls, offset, limit)
+    data_array = queryTableByCls(cls, offset, limit, order)
     count = queryTotalByCls(cls)
     res = {}
     res.setdefault("count", count)
@@ -47,7 +47,9 @@ def batchInsert(cls_name, insert_datas=None):
 
 # 根据类名，分页参数获取db数据
 @catchDbException
-def queryTableByCls(cls, offset=0, limit=10):
+def queryTableByCls(cls, offset=0, limit=10, order=None):
+    if order:
+        cls.select().order_by(order).offset(offset).limit(limit)
     return cls.select().offset(offset).limit(limit)
 
 # 根据类名获取db数据
