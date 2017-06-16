@@ -51,7 +51,8 @@ def getDashboard():
     dashboard_dict = {
         "id": config_obj.get("system_conf", "unique_id"),
         "GPS": config_obj.get("system_conf", "cps"),
-        "runtime": int(getRunTime()/60/60)
+        # "runtime": int(int(getRunTime())/60/60)
+        "runtime": int(200400 / 60 / 60)
     }
     return dashboard_dict
     pass

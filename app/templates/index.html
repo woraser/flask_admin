@@ -17,9 +17,9 @@ html,body{width:100%;height:100%;}
 		<div class="box-header"style="margin:0 auto;background:#2F3543;width:90%"><i class="fa fa-bar-chart-o fa-fw"></i><h3 class="box-title"style="color:#686C78">IOT-x地图</h3></div>
 	        <div class="box-body"style="background:#2F3543;width:90%;height:100px;margin: 0 auto;position:relative;">
 		       <div id="dev-status-bar-wxre" style="height:6%;width:75%; background:#393F4D;position:absolute;left:9%;top:10% ">
-    			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;ID：</div>
-    			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;GPS位置：</div>
-    			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;开机时间：</div>
+    			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;ID：{{ dashboard.id }}</div>
+    			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;GPS位置：{{ dashboard.GPS }}</div>
+    			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;开机时间：{{ dashboard.runtime }}小时</div>
     			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;硬盘大小：</div>
     			<div class="div-inline" >&nbsp;&nbsp;&nbsp;硬盘使用率：</div>
 		       </div>

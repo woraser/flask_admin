@@ -1,5 +1,6 @@
 from flask import render_template, json, session, redirect, url_for, request
 from . import main
+import systemInfo,random
 
 @main.before_request
 def before_request():
@@ -12,30 +13,22 @@ def after_request(response):
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    dashboard = {}
+    dashboard = systemInfo.getDashboard()
     return render_template('index.html', dashboard=dashboard)
 
 @main.route('/index', methods=['GET', 'POST'])
 def default():
-    return redirect(url_for("index"))
+    return redirect(url_for('main.index'))
 
-@main.route('/sensorIndex', methods=['GET'])
-def sensorIndex():
-    return render_template('sensorSetting.html')
+@main.route('/systemPieInfo')
+def getSystemInfo():
+    # res = {
+    #     "cpu_free": systemInfo.getCpuFree(),
+    #     "ram_usage": systemInfo.getRamUsage()
+    # }
+    res = {
+        "cpu_free": random.randint(0, 100),
+        "ram_usage": random.randint(0, 100)
+    }
+    return json.dumps(res)
 
-@main.route('/sensorTableData', methods=['GET', 'POST'])
-def sensorTableData():
-    # data = []
-    data.append({
-        'id': '1',
-        'no': '2',
-        'name': '3',
-        'cycle': '4'
-    })
-    # response = {}
-    response['data'] = data
-    return json.dumps(response)
-
-@main.route('/base', methods=['GET', 'POST'])
-def baseHtml():
-    return render_template('base.html')
