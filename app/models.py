@@ -67,4 +67,4 @@ class SystemInfo(BaseModel):
     id = IntegerField(primary_key=True)
     cpu_usage = FloatField(verbose_name='CPU使用率')
     ram_usage = FloatField(verbose_name='内存使用率')
-    collect_time = DateField(verbose_name='采集时间')
+    collect_time = CharField(verbose_name='采集时间', max_length=50)

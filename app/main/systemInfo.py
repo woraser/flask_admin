@@ -59,7 +59,7 @@ def getDashboard():
     pass
 
 def getSystemHistory(limit=500):
-    orderBy = ('collect_time', 'desc')
+    orderBy = ('i', 'desc')
     cursor = getTablePageByCls("SystemInfo", limit=limit, order=orderBy)
     return cursor
     pass
