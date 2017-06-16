@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # tip:http://homeway.me/2015/04/29/openwrt-develop-base-util/
+# Title:系统级别参数
+from app.main import configSingle
 import os
 
 # get system info by psutil
@@ -32,4 +34,25 @@ def getRamUsage():
 # Return % of CPU free
 def getCpuFree():
     return(str(os.popen("top -n1 | awk '/CPU/ {print $8}'").readline().strip()))
+
+# Return runTime of system
+def getRunTime():
+    with os.popen("cat /proc/uptime") as ps:
+        res = ps.readline().strip().split(" ")
+    return res[0]
+    pass
+
+# build dict of dashboard for index
+# 组装首页面板数据
+def getDashboard():
+
+    configInstance = configSingle.ConfigObj()
+    config_obj = configInstance.config_obj
+    dashboard_dict = {
+        "id": config_obj.get("system_conf", "unique_id"),
+        "GPS": config_obj.get("system_conf", "cps"),
+        "runtime": int(getRunTime()/60/60)
+    }
+    return dashboard_dict
+    pass
 

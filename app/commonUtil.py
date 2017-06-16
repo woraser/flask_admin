@@ -37,6 +37,7 @@ def buildDataTableResponse(draw, data, recordsTotal, recordsFiltered):
     return response
     pass
 
+# 根据model类的名称获得cls
 @catchDbException
 def getModelClsByName(cls_name):
     mode = importlib.import_module('.models', 'app')

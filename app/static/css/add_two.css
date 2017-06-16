@@ -1,0 +1,109 @@
+@charset "utf-8";
+/* CSS Document */
+
+.panel-default{margin:0 10px 0 10px;}
+.panel-body  {
+	padding-top:25px;
+	border-radius:3px;
+}
+.panel-body .brand_box {
+	width: 100%;
+}
+
+   
+   .list-table tr td{
+	float: left;
+	height: 35px;
+	width: 9%;
+	text-align:left;
+	}
+
+  .list-table tr{
+	display:block;
+	width:100%
+	}
+  .ui-autocomplete {
+    max-height: 120px;
+    overflow-y: auto;
+    /* 防止水平滚动条 */
+    overflow-x: hidden;
+  }
+  .brand_box_list {
+	float: left;
+	width: 92%;
+}
+.brand_box_key {
+	float: left;
+	width: 8%;
+	text-align:right;
+}
+.content-header{
+	padding: 30px 0 0 25px;
+}
+.select-control {
+	height: 22px;
+	border: 1px solid #3C8DBC;
+	line-height:22px;
+}
+.select-option{ height:40px; }
+.search-label{ width:200px; height:40px;}
+.search-input{width:200px; }
+.search-icon{width:50px; text-align:center; border:2px solid #3c8dbc; background-color:#3c8dbc; }
+.tochoice{border:1px dashed #3c8dbc; background-color:#fff; }
+
+/*仓库*/
+.content{
+	min-height:250px;
+	padding: 0px 15px 15px 15px;
+	margin:auto;
+	background:#242736;
+}
+.content-modal{
+	backgroud:transparent !important;
+	position: relative;
+	display: block;
+	z-index: 1;
+}
+.example-modal .modal{
+	position:relative;
+	top:auto;
+	bottom:auto;
+	left:auto;
+	right:auto;
+	display:block;
+	z-index:1;
+}
+.modal-dialog{ 
+	width: 30%;
+ 	float:left;
+	position: relative;
+	 margin: 1%;
+	}
+.modal-content{
+	box-shadow:0 2px 3px rgba(0,0,0,0.125);
+	border:0;
+	position:relative;
+	background-color:#fff;
+	background-clip:padding-box;
+	outline:0;
+	margin-top:30px;
+	}
+.modal-header{
+	color:#000;
+	 border-top:3px solid #3c8dbc; 
+	 border-radius:3px;
+}
+.modal-body-first{ 
+	position:relative;
+	padding-left:15px;
+	padding-top:15px;
+	}
+.modal-body-second{ 
+	position:relative;
+	padding-left:15px;
+	padding-bottom:5px;
+	}
+.modal-body-third{ 
+	position:relative;
+	padding-left:15px;
+	}

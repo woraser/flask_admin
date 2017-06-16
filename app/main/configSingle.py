@@ -1,17 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Title: 配置文件
 
 import ConfigParser
-
-def singleton(cls, *args, **kw):
-    instances = {}
-    def _singleton():
-        if cls not in instances:
-            instances[cls] = cls(*args, **kw)
-        return instances[cls]
-    return _singleton
-
-
+from ..decoratorUtil import singleton
+import os
 
 @singleton
 class ConfigObj(object):
@@ -23,6 +16,14 @@ class ConfigObj(object):
             with open('config.ini') as fp:
                 self.config_obj.readfp(fp)
         pass
+
+
+    def flushConfig(self):
+        with open('config.ini', 'w') as fp:
+            self.config_obj.write(fp)
+            pass
+        pass
+
 
 
 

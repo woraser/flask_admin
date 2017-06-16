@@ -1,130 +1,69 @@
 {% extends "base.html" %}
-{#{% import "bootstrap/wtf.html" as wtf %}#}
+{% block styles %}
+  {{ super() }}
+ <style>
+.div-inline{float:left;color:white;width:20%;margin-top:9px;text-align:left;line-height:250%}
+html,body{width:100%;height:100%;}
+</style>
+{% endblock %}
 
-{% block title %}index{% endblock %}
+{% block content %}
+<div class="col-md-6" style="width:100%;height:100%;background:#ecf0f5;">
+		<div class="row"style="background:#242736;">
+			<div class="nav-tabs-custom" style="padding-top:0px;padding-left:30px;">
+			</div>
+		<section class="content"style="background:#242735">
+		<div class="box-body" >
+		<div class="box-header"style="margin:0 auto;background:#2F3543;width:90%"><i class="fa fa-bar-chart-o fa-fw"></i><h3 class="box-title"style="color:#686C78">IOT-x地图</h3></div>
+	        <div class="box-body"style="background:#2F3543;width:90%;height:100px;margin: 0 auto;position:relative;">
+		       <div id="dev-status-bar-wxre" style="height:6%;width:75%; background:#393F4D;position:absolute;left:9%;top:10% ">
+    			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;ID：</div>
+    			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;GPS位置：</div>
+    			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;开机时间：</div>
+    			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;硬盘大小：</div>
+    			<div class="div-inline" >&nbsp;&nbsp;&nbsp;硬盘使用率：</div>
+		       </div>
+		       <button style="font-size:15px;float:right;border-radius:30px;margin-right:38px;margin-top:0.7%;width:6%;height:45px;background:#3B4251;color:white;border:1px solid #2E6E93" id="back" onclick="back()">配置</button>
+		 </div>
 
-{% block page_content %}
-<div class="content-body" style="padding-top: 5px;">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            CPU 使用率
-                        </div>
-                        <div class="panel-body"  >
-                            <div id="cpu-pie-chart" style="height:400px;"></div>
-                        </div>
-                    </div>
-                </div>
-            <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            内存 使用率
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div id="ram-pie-chart"   style="height:400px"></div>
-                        </div>
-                    </div>
+	   <div class="box box-primary" style="float:left;width:32%; height:300px; margin-left:5%; margin-top:15px;border-top: 1px solid #363C4C;border-bottom: 1px solid #363C4C">
+	    	<div class="box-header"style="background:#404656;height:40px"><i class="fa fa-bar-chart-o fa-fw"></i><h3 class="box-title"style="colour:red">cpu使用率</h3></div>
+		     <div class="box-body"style="background:#303644;height:300px">
+		 	 <div id="dev-status-bar-wxre1" style="left:10px;float:right;width: 100%; height:100%; margin: 0 auto; border-top: 1px solid #363C4C;border-bottom: 1px solid #363C4C"></div>
+			</div>
+	   </div>
 
-                </div>
+		<div class="box box-primary" style="float:right;width:57%; height:300px;margin-right:5%; margin-top:15px; border-top: 1px solid #363C4C;border-bottom: 1px solid #363C4C">
+			  <div class="box-header"style="background:#404656;height:40px"><i class="fa fa-bar-chart-o fa-fw"></i><h3 class="box-title"style="colour:red">设备分类饼图</h3></div>
+		 		<div class="box-body"style="background:#303644;height:300px">
+			  <div id="dev-status-bar-wxre2" style="background:#393F4D;left:10px;float:right;width:100%; height:100%; margin: 0 auto; border-top: 1px solid #363C4C;border-bottom: 1px solid #363C4C"></div>
+		</div>
+		</div>
 
-        </div>
-    </div>
-</div>
+		<div class="box box-primary" style="float:left;width:32%;height:300px; margin-left:5%; margin-top:50px;border-top: 1px solid #363C4C;border-bottom: 1px solid #363C4C">
+	    	<div class="box-header"style="background:#404656;height:40px"><i class="fa fa-bar-chart-o fa-fw"></i><h3 class="box-title"style="colour:red">cpu使用率</h3></div>
+		     <div class="box-body"style="background:#303644;height:300px">
+		 	 <div id="dev-status-bar-wxre3" style="left:10px;float:right;width: 100%; height:100%; margin: 0 auto; border-top: 1px solid #363C4C;border-bottom: 1px solid #363C4C"></div>
+			</div>
+	   </div>
+
+		<div class="box box-primary" style="float:right;width:57%;height:300px;margin-right:5%; margin-top:50px; border-top: 1px solid #363C4C;border-bottom: 1px solid #363C4C">
+			  <div class="box-header"style="background:#404656;height:40px"><i class="fa fa-bar-chart-o fa-fw"></i><h3 class="box-title"style="colour:red">设备分类饼图</h3></div>
+		 		<div class="box-body"style="background:#303644;height:300px">
+			  <div id="dev-status-bar-wxre4" style="background:#393F4D;left:10px;float:right;width:100%; height:100%; margin: -10px; border-top: 1px solid #363C4C;border-bottom: 1px solid #363C4C"></div>
+		</div>
+		</div>
+
+		 </div>
+				</section>
+		</div>
+	</div>
+
+{% endblock  %}
+
 {% block scripts %}
-      {{ super() }}
-      <script src="../static/js/echarts.simple.min.js"></script>
-      <script type="text/javascript">
-      var cpuChart = echarts.init(document.getElementById('cpu-pie-chart'));
-      var ramChart = echarts.init(document.getElementById('ram-pie-chart'));
-      var option_cpu = {};
-      var option_ram = {};
-{#      var reloadPie = function(){#}
-{#          $.ajax({#}
-{#                url: '/systemInfo',#}
-{#                type: 'get',#}
-{#                success: function (data) {#}
-{##}
-{#                    var cpu_usage = data.cpu_usage;#}
-{#                    var cpu_left = 100-parseFloat(cpu_usage);#}
-{#                    var ram_usage = data.ram_usage;#}
-{#                    var ram_left = 100-parseFloat(ram_usage);#}
-{#                     option_cpu = {#}
-{#                            title : {#}
-{#                                text: 'CPU使用率',#}
-{#                                x:'center'#}
-{#                            },#}
-{#                            tooltip : {#}
-{#                                trigger: 'item',#}
-{#                                formatter: "{a} <br/>{b} : {c} ({d}%)"#}
-{#                            },#}
-{#                            calculable : true,#}
-{#                            series : [#}
-{#                                {#}
-{#                                    name:'使用率',#}
-{#                                    type:'pie',#}
-{#                                    radius : '55%',#}
-{#                                    center: ['50%', '60%'],#}
-{#                                    data:[#}
-{#                                        {value:cpu_usage, name:'已使用'},#}
-{#                                        {value:cpu_left, name:'未使用'},#}
-{#                                    ],#}
-{#                                    itemStyle:{#}
-{#                                        normal:{#}
-{#                                              label:{#}
-{#                                                show: true,#}
-{#                                                formatter: '{b} : {c} ({d}%)'#}
-{#                                              },#}
-{#                                              labelLine :{show:true}#}
-{#                                            }#}
-{#                                        }#}
-{#                                }#}
-{#                            ]#}
-{#                        };#}
-{#                     cpuChart.setOption(option_cpu);#}
-{#//                     RAM#}
-{#                    option_ram = {#}
-{#                            title : {#}
-{#                                text: 'RAM使用率',#}
-{#                                x:'center'#}
-{#                            },#}
-{#                            tooltip : {#}
-{#                                trigger: 'item',#}
-{#                                formatter: "{a} <br/>{b} : {c} ({d}%)"#}
-{#                            },#}
-{#                            calculable : true,#}
-{#                            series : [#}
-{#                                {#}
-{#                                    name:'使用率',#}
-{#                                    type:'pie',#}
-{#                                    radius : '55%',#}
-{#                                    center: ['50%', '60%'],#}
-{#                                    data:[#}
-{#                                        {value:ram_usage, name:'已使用'},#}
-{#                                        {value:ram_left, name:'未使用'},#}
-{#                                    ],#}
-{#                                    itemStyle:{#}
-{#                                        normal:{#}
-{#                                              label:{#}
-{#                                                show: true,#}
-{#                                                formatter: '{b} : {c} ({d}%)'#}
-{#                                              },#}
-{#                                              labelLine :{show:true}#}
-{#                                            }#}
-{#                                        }#}
-{#                                }#}
-{#                            ]#}
-{#                        };#}
-{#                     ramChart.setOption(option_ram);#}
-{#                }#}
-{#       });#}
-{#      };#}
-{#      reloadPie();#}
-{#      setInterval("reloadPie()", 1000);#}
+  {{ super() }}
+<script src="../static/js/echarts/echarts.js" type="text/javascript"></script>
+<script src="../static/js/business/index.js" type="text/javascript"></script>
+{% endblock  %}
 
-</script>
-{% endblock %}
-
-{% endblock %}

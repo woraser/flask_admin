@@ -1,19 +1,27 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
-from models import initDb, User
-from main.quartzJob import Quartz
+
+from app.quartzJob.schedulerJob import Quartz
 from main import configSingle
+from models import initDb, User
+import ConfigParser
+import os
 
 bootstrap = Bootstrap()
 db = initDb()
 quartz = Quartz()
-configSingle = configSingle.ConfigObj()
+configInstance = configSingle.ConfigObj()
 def create_app():
     app = Flask(__name__)
-    app.secret_key = 'hard to guessing'
+    app.secret_key = 'hard to guessing pwd!@#$%'
+
+    configInstance.config_obj.set("project_conf", "base_dir", os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
+    configInstance.flushConfig()
+
     bootstrap.init_app(app)
+
     sched = quartz.addJobDynamic()
-    # sched.start()
+    sched.start()
     # register routes
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

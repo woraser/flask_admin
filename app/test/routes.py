@@ -8,6 +8,8 @@ from flask import jsonify
 from . import test
 from ..models import User
 from ..common.dbFactory import batchInsert
+from app.main.systemInfo import getRunTime
+from ..quartzJob import systemJob
 import time
 
 @test.route("/testpeewee")
@@ -23,8 +25,8 @@ def testpeewee():
 
 @test.route("/testGetSystemInfo")
 def testGetSystemInfo():
-
-    return "success"
+    # system_job.addSystemInfo()
+    return jsonify({"result":getRunTime()})
     pass
 
 

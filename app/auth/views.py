@@ -3,6 +3,10 @@ from . import auth
 from ..models import User
 import json
 
+@auth.before_request
+def before_request():
+    if str(request.url_rule) != '/auth/login' and session.get('is_login') is None:
+        return redirect(url_for('auth.login'))
 
 
 @auth.route('/login', methods=['GET', 'POST'])

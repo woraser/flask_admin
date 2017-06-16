@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask_login import UserMixin
 from peewee import *
 
 db = SqliteDatabase('./test3.db')
 
 def initDb():
-    db.create_tables([User, SensorData], safe=True)
+    db.create_tables([User, SensorData, SystemInfo, Sensor, EngineerEmail], safe=True)
     db.close()
 
 class BaseModel(Model):
@@ -15,7 +14,7 @@ class BaseModel(Model):
         database = db
 
 # 用户信息
-class User(UserMixin, BaseModel):
+class User(BaseModel):
     id = IntegerField(primary_key=True)
     account = CharField(max_length=20)
     pwd = CharField(max_length=200)
