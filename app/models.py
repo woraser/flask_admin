@@ -51,7 +51,7 @@ class SensorData(BaseModel):
     id = IntegerField(primary_key=True)
     sensor_no = CharField(verbose_name='传感器序列号', max_length=20)
     val = CharField(verbose_name='采集值', max_length=20)
-    created_time = IntegerField(verbose_name='创建时间')
+    created_time = IntegerField(verbose_name='创建时间,时间戳便于传输')
     is_post = BooleanField(verbose_name='是否已推送', default=False)
 
 # 收件人邮箱
@@ -60,7 +60,7 @@ class EngineerEmail(BaseModel):
     account = CharField(verbose_name='收件邮箱', max_length=200)
     user_name = CharField(verbose_name='收件人名称', max_length=100)
     is_used = BooleanField(verbose_name='是否启用', default=True)
-    created_time = DateField(verbose_name='创建时间')
+    created_time = CharField(verbose_name='创建时间', max_length=50)
 
 # 系统运行监控数据
 class SystemInfo(BaseModel):

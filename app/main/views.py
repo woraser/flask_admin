@@ -1,6 +1,14 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Title:
+
 from flask import render_template, json, session, redirect, url_for, request
 from . import main
-import systemInfo,random
+import systemInfo,random,configSingle
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 @main.before_request
 def before_request():
@@ -14,7 +22,8 @@ def after_request(response):
 @main.route('/', methods=['GET', 'POST'])
 def index():
     dashboard = systemInfo.getDashboard()
-    return render_template('index.html', dashboard=dashboard)
+    configInfo = configSingle.getNodeConfig()
+    return render_template('index.html', dashboard=dashboard, configInfo=configInfo)
 
 @main.route('/index', methods=['GET', 'POST'])
 def default():

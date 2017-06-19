@@ -51,7 +51,7 @@ def getDashboard():
     config_obj = configInstance.config_obj
     dashboard_dict = {
         "id": config_obj.get("system_conf", "unique_id"),
-        "GPS": config_obj.get("system_conf", "cps"),
+        "GPS": config_obj.get("system_conf", "gps"),
         # "runtime": int(int(getRunTime())/60/60)
         "runtime": int(200400 / 60 / 60)
     }

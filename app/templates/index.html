@@ -23,7 +23,7 @@ html,body{width:100%;height:100%;}
     			<div class="div-inline" style="border-right:2px solid red">&nbsp;&nbsp;&nbsp;硬盘大小：</div>
     			<div class="div-inline" >&nbsp;&nbsp;&nbsp;硬盘使用率：</div>
 		       </div>
-		       <button style="font-size:15px;float:right;border-radius:30px;margin-right:38px;margin-top:0.7%;width:6%;height:45px;background:#3B4251;color:white;border:1px solid #2E6E93" id="back" onclick="back()">配置</button>
+		       <button style="font-size:15px;float:right;border-radius:30px;margin-right:38px;margin-top:0.7%;width:6%;height:45px;background:#3B4251;color:white;border:1px solid #2E6E93" id="doConfig" >配置</button>
 		 </div>
 
 	   <div class="box box-primary" style="float:left;width:32%; height:300px; margin-left:5%; margin-top:15px;border-top: 1px solid #363C4C;border-bottom: 1px solid #363C4C">
@@ -53,11 +53,65 @@ html,body{width:100%;height:100%;}
 			  <div id="dev-status-bar-wxre4" style="background:#393F4D;left:10px;float:right;width:100%; height:100%; margin: -10px; border-top: 1px solid #363C4C;border-bottom: 1px solid #363C4C"></div>
 		</div>
 		</div>
-
 		 </div>
 				</section>
 		</div>
 	</div>
+
+    <div class="form-group" id="configFormDiv" style="display: none;++">
+    <form class="form-horizontal" id="configForm">
+        <div class="form-group">
+            <label class="col-md-2 control-label">唯一标识</label>
+            <div class="col-md-4">
+            <input type="text"  class="form-control" id="" value="{{configInfo.unique_id}}"  placeholder="" style="" readonly="true">
+        </div>
+        <label class="col-md-2 control-label">名称</label>
+            <div class="col-md-4">
+            <input  class="form-control" type="text"  placeholder="名称" value="{{configInfo.full_name}}" id="form_name" style=""  >
+            </div>
+        </div>
+        <div id="time" class="form-group">
+            <label class="col-md-2 control-label">位置</label>
+            <div class="col-md-4">
+            <input  class="form-control" type="text"   value="{{configInfo.location}}" placeholder="位置" id="" style=""  >
+            </div>
+            <label class="col-md-2 control-label">GPS</label>
+            <div class="col-md-4">
+            <input  class="form-control" type="text"   value="{{configInfo.gps}}" placeholder="GPS" id="" style="" readonly="true"  >
+            </div>
+        </div>
+        <div id="time" class="form-group">
+            <label class="col-md-2 control-label">服务器IP</label>
+            <div class="col-md-4">
+            <input  class="form-control" type="text"   value="{{configInfo.remote_address}}" placeholder="服务器IP" id="" style="" >
+            </div>
+            <label class="col-md-2 control-label">发件人</label>
+            <div class="col-md-4">
+            <input  class="form-control" type="text"   value="{{configInfo.email_sender}}" placeholder="发件人" id="" style="" >
+            </div>
+        </div>
+        <div id="time" class="form-group">
+            <label class="col-md-2 control-label">邮箱账号</label>
+            <div class="col-md-4">
+            <input  class="form-control" type="text"   value="{{configInfo.email_account}}" placeholder="邮箱账号" id="" style="" >
+            </div>
+            <label class="col-md-2 control-label">邮箱密码</label>
+            <div class="col-md-4">
+            <input  class="form-control" type="text"   value="{{configInfo.email_pwd}}" placeholder="邮箱密码" id="" style="" >
+            </div>
+        </div>
+        <div id="time" class="form-group">
+            <label class="col-md-2 control-label">邮箱主机</label>
+            <div class="col-md-4">
+            <input  class="form-control" type="text"   value="{{configInfo.email_host}}" placeholder="邮箱主机" id="" style=""  >
+            </div>
+            <label class="col-md-2 control-label">邮箱端口</label>
+            <div class="col-md-4">
+            <input  class="form-control" type="text"   value="{{configInfo.email_port}}" placeholder="邮箱端口" id="" style=""  >
+            </div>
+        </div>
+</form>
+    </div>
 
 {% endblock  %}
 
