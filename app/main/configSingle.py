@@ -53,7 +53,7 @@ def updateNodeConfig(dict=None):
     configInstance.config_obj.set("mail_conf", "mail_port", dict["email_port"]),
     configInstance.config_obj.set("mail_conf", "mail_sender", dict["email_sender"]),
     configInstance.config_obj.set("mail_conf", "mail_pwd", dict["email_pwd"]),
-    configInstance.config_obj.set("internet_conf", "remote_address", dict["email_address"])
+    configInstance.config_obj.set("internet_conf", "remote_address", dict["remote_address"])
     configInstance.flushConfig()
 
     pass

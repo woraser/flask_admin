@@ -51,8 +51,8 @@ def getSystemInfoHistory():
 # 修改节点配置信息
 @main.route('/nodeConfig', methods=['PUT'])
 def updateNodeConfig():
-    post_data = request.values
-    configSingle.updateNodeConfig(post_data["config"])
+    post_data = request.data
+    configSingle.updateNodeConfig(json.loads(post_data))
     return json.dumps({"status": 1})
     pass
 
