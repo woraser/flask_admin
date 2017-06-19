@@ -41,12 +41,20 @@ def getNodeConfig():
         "email_pwd": configInstance.config_obj.get("mail_conf", "mail_pwd"),
         "remote_address": configInstance.config_obj.get("internet_conf", "remote_address")
     }
-
-
     return config_dict
     pass
 
 def updateNodeConfig(dict=None):
+    configInstance = ConfigObj()
+    configInstance.config_obj.set("system_conf", "location", dict["location"]),
+    configInstance.config_obj.set("system_conf", "full_name", dict["full_name"]),
+    configInstance.config_obj.set("mail_conf", "mail_account", dict["email_account"]),
+    configInstance.config_obj.set("mail_conf", "mail_host", dict["email_host"]),
+    configInstance.config_obj.set("mail_conf", "mail_port", dict["email_port"]),
+    configInstance.config_obj.set("mail_conf", "mail_sender", dict["email_sender"]),
+    configInstance.config_obj.set("mail_conf", "mail_pwd", dict["email_pwd"]),
+    configInstance.config_obj.set("internet_conf", "remote_address", dict["email_address"])
+    configInstance.flushConfig()
 
     pass
 

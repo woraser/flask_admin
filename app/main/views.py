@@ -29,6 +29,7 @@ def index():
 def default():
     return redirect(url_for('main.index'))
 
+# 获取拼装图数据
 @main.route('/systemPieInfo')
 def getSystemInfo():
     # res = {
@@ -41,8 +42,17 @@ def getSystemInfo():
     }
     return json.dumps(res)
 
+# 获取折线图数据
 @main.route('/systemLineInfo')
 def getSystemInfoHistory():
     response = systemInfo.getSystemHistory()
     return json.dumps(response)
+
+# 修改节点配置信息
+@main.route('/nodeConfig', methods=['PUT'])
+def updateNodeConfig():
+    post_data = request.values
+    configSingle.updateNodeConfig(post_data["config"])
+    return json.dumps({"status": 1})
+    pass
 
