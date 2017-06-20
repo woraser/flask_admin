@@ -15,10 +15,19 @@ def deleteByClsAndId(cla_name, identity=None):
     cls = getModelClsByName(cla_name)
     return User.delete().where(cls.id == identity).execute()
 
-#根据id插入数据
+#根据类名插入数据
 def insertByCls(cla_name, data=None):
     cls = getModelClsByName(cla_name)
     return cls.insert(data).execute()
+
+# 根据类名和主键获得数据详情
+def findOneByClsAndId(Cla, id):
+    cls = getModelClsByName(Cla)
+    record = findOneByIdFromDb(cls, id)
+    if record is not None:
+        return convertDbObjToDict([record], cls)
+        pass
+    return record
 
 # 根据model类名 获得分页数据
 def getTablePageByCls(cla_name, offset=0, limit=10,order=None):
@@ -52,10 +61,15 @@ def queryTableByCls(cls, offset=0, limit=10, order=None):
         cls.select().order_by(order).offset(offset).limit(limit)
     return cls.select().offset(offset).limit(limit)
 
-# 根据类名获取db数据
+# 根据类名获取db数据总量
 @catchDbException
 def queryTotalByCls(cls):
     return cls.select().count()
+
+# 根据类名和id获取db数据
+@catchDbException
+def findOneByIdFromDb(cls, unique_id):
+    return cls.get(cls.id == unique_id)
 
 # 构建传感器数据row
 def buildSensorRow(sensor_name, val):

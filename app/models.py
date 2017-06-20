@@ -41,8 +41,9 @@ class Sensor(BaseModel):
     rel_equ = CharField(verbose_name='关联设备名称', max_length=200)
     max_limit = CharField(verbose_name='上限值', max_length=200)
     min_limit = CharField(verbose_name='下限值', max_length=200)
-    type = CharField(verbose_name='类型名称', max_length=200)
+    type = CharField(verbose_name='类型名称，传感器用途', max_length=200)
     interface = CharField(verbose_name='接口名称', max_length=200)
+    accessPort = CharField(verbose_name='接入端口名称', max_length=200)
     is_used = BooleanField(verbose_name='是否启用', default=True)
 
 

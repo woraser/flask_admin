@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import importlib
+import importlib, json
 from decoratorUtil import catchDbException
 
 # 将peewee查询对象转化为dict
@@ -43,3 +43,29 @@ def getModelClsByName(cls_name):
     mode = importlib.import_module('.models', 'app')
     cls = getattr(mode, cls_name)
     return cls
+
+
+def buildSucc(data):
+    res = {
+        "status": 1,
+        "data": data
+    }
+    return json.dumps(res)
+    pass
+
+def buildErr(msg):
+    res = {
+        "status": 0,
+        "data": msg
+    }
+    return json.dumps(res)
+    pass
+
+def buildNone():
+    res = {
+        "status": 2,
+        "data": None
+    }
+    return json.dumps(res)
+    pass
+

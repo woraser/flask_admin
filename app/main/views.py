@@ -4,6 +4,8 @@
 
 from flask import render_template, json, session, redirect, url_for, request
 from . import main
+from app.commonUtil import buildErr,buildSucc,buildNone
+from app.common.dbFactory import findOneByClsAndId
 import systemInfo,random,configSingle
 import sys
 
@@ -56,3 +58,20 @@ def updateNodeConfig():
     return json.dumps({"status": 1})
     pass
 
+
+@main.route('/sensorManger', methods=['GET'])
+def sensorManger():
+    return render_template('sensorManger.html')
+
+@main.route('/sensorDetail', methods=['GET'])
+def sensorDetail():
+    return render_template('sensorDetail.html')
+
+
+# 获取单个
+@main.route('/sensorInfo/<string:id>', methods=['GET'])
+def sensorInfo(id):
+    record = findOneByClsAndId("Sensor", id)
+    if record is None:
+        buildNone()
+    return buildSucc(record)

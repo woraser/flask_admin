@@ -18,6 +18,7 @@ var dashboardController = {
 	cpuPieInit:function(){
 		//第二个参数可以指定前面引入的主题
 		var cpuPie = echarts.init(document.getElementById('dev-status-bar-wxre1'), 'dark');
+		cpuPie.showLoading();
 		var option1 = {
 				tooltip : {formatter: "{a} <br/>{b} : {c}%"},
 				toolbox: {feature: {saveAsImage: {}}},
@@ -36,6 +37,7 @@ var dashboardController = {
 	ramPieInit:function(){
 		//第二个参数可以指定前面引入的主题
 		var ramPie = echarts.init(document.getElementById('dev-status-bar-wxre3'), 'dark');
+		ramPie.showLoading();
 		var option3 = {
 				tooltip : {formatter: "{a} <br/>{b} : {c}%"},
 				toolbox: {feature: {saveAsImage: {}}},
@@ -62,6 +64,8 @@ var dashboardController = {
 		 	ramOption.series[0].data[0].value = ram_usage;
 		 	cpuPie.setOption(CpuOption, true);
 		 	ramPie.setOption(ramOption, true);
+		 	cpuPie.hideLoading();
+		 	ramPie.hideLoading();
 		 });
 	},
 	cpuLineChartInit:function(){
