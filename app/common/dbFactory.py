@@ -25,7 +25,7 @@ def findOneByClsAndId(Cla, id):
     cls = getModelClsByName(Cla)
     record = findOneByIdFromDb(cls, id)
     if record is not None:
-        return convertDbObjToDict([record], cls)
+        return convertDbObjToDict(record, cls)
         pass
     return record
 

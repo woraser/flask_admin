@@ -2,11 +2,19 @@
 # -*- coding: utf-8 -*-
 import importlib, json
 from decoratorUtil import catchDbException
+from collections import Iterable
 
 # 将peewee查询对象转化为dict
 def convertDbObjToDict(objs, cls):
     dict_array = []
     fields = getFieldsFromModelCls(cls)
+    if not isinstance(objs, Iterable):
+        dict_item = {}
+        for i in fields:
+            if getattr(objs, i) is not None:
+                dict_item.setdefault(i, getattr(objs, i))
+            pass
+        return dict_item
     for obj in objs:
         dict_item = {}
         for i in fields:

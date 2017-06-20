@@ -73,5 +73,5 @@ def sensorDetail():
 def sensorInfo(id):
     record = findOneByClsAndId("Sensor", id)
     if record is None:
-        buildNone()
+        return buildNone()
     return buildSucc(record)

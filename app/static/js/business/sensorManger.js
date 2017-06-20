@@ -72,17 +72,6 @@ var sensorMangerController = {
         sensorMangerController.showDialogForConfig(val);
     },
     "showDialogForConfig":function(val){
-         $.get("/sensorInfo/"+val, function(result){
-             var data = JSON.parse(result);
-             if(data["status"] != 1){
-                 bootbox.alert("数据获取失败，请重新再试!");
-             }
-             var sensorInfo = data["data"];
-
-
-            $("div").html(result);
-          });
-
 		var html_=$("#sensorFormDiv").html();
         var dialog = new bootbox.dialog({
             message: html_,
@@ -106,6 +95,23 @@ var sensorMangerController = {
             }
         });
         $(".modal-dialog").css({"top":"30%","left":"35%"});
+        $.ajax({
+			type:"GET",
+			url:"/sensorInfo/"+val,
+            async:false,
+			success:function(result){
+                var data = JSON.parse(result);
+                 if(data["status"] != 1){
+                     bootbox.alert("数据获取失败，请重新再试!");
+                 }
+                 var sensorInfo = data["data"];
+                 $(".bootbox-body .unique_id").val(sensorInfo["id"]);
+                 $(".bootbox-body .sensor_no").val(sensorInfo["sensor_no"]);
+                 $(".bootbox-body .max_limit").val(sensorInfo["max_limit"]);
+                 $(".bootbox-body .min_limit").val(sensorInfo["min_limit"]);
+                 $(".bootbox-body .job_time").val(sensorInfo["job_time"]);
+                }
+            });
     },
     updateSensorConfig:function () {
 		$(".modal-dialog input").each(function(e){
