@@ -122,18 +122,15 @@ var sensorMangerController = {
 			}
 		});
 		var update_config= {
-			location : $(".bootbox-body .location").val().trim(),
-			full_name : $(".bootbox-body .full_name").val().trim(),
-			email_account : $(".bootbox-body .email_account").val().trim(),
-			email_host : $(".bootbox-body .email_host").val().trim(),
-			email_port : $(".bootbox-body .email_port").val().trim(),
-			email_sender : $(".bootbox-body .email_sender").val().trim(),
-			email_pwd : $(".bootbox-body .email_pwd").val().trim(),
-			remote_address : $(".bootbox-body .remote_address").val().trim()
+			unique_id : $(".bootbox-body .unique_id").val().trim(),
+			sensor_no : $(".bootbox-body .sensor_no").val().trim(),
+			max_limit : $(".bootbox-body .max_limit").val().trim(),
+			min_limit : $(".bootbox-body .min_limit").val().trim(),
+			job_time : $(".bootbox-body .job_time").val().trim(),
 		};
 		$.ajax({
 			type:"PUT",
-			url:"/nodeConfig",
+			url:"/sensorConfig",
 			data:JSON.stringify(update_config),
 			dataType:"json",
 			contentType:'application/json',
