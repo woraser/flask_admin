@@ -4,8 +4,11 @@
 
 from flask import render_template, json, session, redirect, url_for, request
 from . import main
+from peewee import Expression
 from app.commonUtil import buildErr,buildSucc,buildNone
 from app.common.dbFactory import findOneByClsAndId
+from mainService import updateSensorByIdAndData
+from app.models import Sensor
 import systemInfo,random,configSingle
 import sys
 
@@ -75,3 +78,10 @@ def sensorInfo(id):
     if record is None:
         return buildNone()
     return buildSucc(record)
+
+# 修改单个传感器数据
+@main.route('/sensorConfig/<string:id>', methods=['PUT'])
+def sensorConfig(id):
+    post_data = request.data
+    result = updateSensorByIdAndData(id, json.loads(post_data))
+    return buildSucc(result)

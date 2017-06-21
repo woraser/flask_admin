@@ -29,6 +29,13 @@ def findOneByClsAndId(Cla, id):
         pass
     return record
 
+# 根据条件修改类
+# update_dict = {cls.id:1,..}
+# condition={Expression(Sensor.id, "=", id),..}
+def updateModelByWhere(cls, update_dict=None, condition=None):
+    return cls.update(update_dict).where(condition).execute()
+    pass
+
 # 根据model类名 获得分页数据
 def getTablePageByCls(cla_name, offset=0, limit=10,order=None):
     cls = getModelClsByName(cla_name)

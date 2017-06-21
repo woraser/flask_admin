@@ -81,9 +81,7 @@ var sensorMangerController = {
                 	label:"确认",
                     className: "btn-success",
                     callback: function() {
-                	    debugger;
                 	    sensorMangerController.updateSensorConfig(val)
-
                     }
                 },
 				cancel: {
@@ -113,7 +111,7 @@ var sensorMangerController = {
                 }
             });
     },
-    updateSensorConfig:function () {
+    updateSensorConfig:function (val) {
 		$(".modal-dialog input").each(function(e){
 			if(!$(this).val()){
 				bootbox.alert("请补全传感器配置");
@@ -126,15 +124,15 @@ var sensorMangerController = {
 			sensor_no : $(".bootbox-body .sensor_no").val().trim(),
 			max_limit : $(".bootbox-body .max_limit").val().trim(),
 			min_limit : $(".bootbox-body .min_limit").val().trim(),
-			job_time : $(".bootbox-body .job_time").val().trim(),
+			job_time : $(".bootbox-body .job_time").val().trim()
 		};
 		$.ajax({
 			type:"PUT",
-			url:"/sensorConfig",
+			url:"/sensorConfig/"+val,
 			data:JSON.stringify(update_config),
 			dataType:"json",
 			contentType:'application/json',
-			success:function(result){
+			success:function(){
 				window.location.reload();
 			}
 
