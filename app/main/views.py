@@ -24,17 +24,33 @@ def before_request():
 def after_request(response):
     return response
 
+# 进入首页
 @main.route('/', methods=['GET', 'POST'])
 def index():
     dashboard = getDashboard()
     configInfo = configSingle.getNodeConfig()
     return render_template('index.html', dashboard=dashboard, configInfo=configInfo)
 
+# 进入首页
 @main.route('/index', methods=['GET', 'POST'])
 def default():
     return redirect(url_for('main.index'))
 
-# 获取拼装图数据
+
+# 进入传感器管理页面
+@main.route('/sensorManger', methods=['GET'])
+def sensorManger():
+    return render_template('sensorManger.html')
+
+# 进入传感器详情页面
+@main.route('/sensorDetail/<id>', methods=['GET'])
+def sensorDetail(id=None):
+    if not id:
+        redirect(url_for('main.sensorManger'))
+    sensorInfo = findOneByClsAndId("Sensor", id)
+    return render_template('sensorDetail.html', sensorInfo=sensorInfo)
+
+# 获取饼状图数据
 @main.route('/systemPieInfo')
 def getSystemInfo():
     # res = {
@@ -61,20 +77,7 @@ def updateNodeConfig():
     return json.dumps({"status": 1})
     pass
 
-
-@main.route('/sensorManger', methods=['GET'])
-def sensorManger():
-    return render_template('sensorManger.html')
-
-@main.route('/sensorDetail/<id>', methods=['GET'])
-def sensorDetail(id=None):
-    if not id:
-        redirect(url_for('main.sensorManger'))
-    sensorInfo = findOneByClsAndId("Sensor", id)
-    return render_template('sensorDetail.html', sensorInfo=sensorInfo)
-
-
-# 获取单个
+# 获取单个传感器详情
 @main.route('/sensorInfo/<string:id>', methods=['GET'])
 def sensorInfo(id):
     record = findOneByClsAndId("Sensor", id)
