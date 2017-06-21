@@ -7,7 +7,7 @@ from . import main
 from peewee import Expression
 from app.commonUtil import buildErr,buildSucc,buildNone
 from app.common.dbFactory import findOneByClsAndId
-from mainService import updateSensorByIdAndData
+from mainService import updateSensorByIdAndData,getDashboard, getSystemHistory
 from app.models import Sensor
 import systemInfo,random,configSingle
 import sys
@@ -26,7 +26,7 @@ def after_request(response):
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    dashboard = systemInfo.getDashboard()
+    dashboard = getDashboard()
     configInfo = configSingle.getNodeConfig()
     return render_template('index.html', dashboard=dashboard, configInfo=configInfo)
 
@@ -50,7 +50,7 @@ def getSystemInfo():
 # 获取折线图数据
 @main.route('/systemLineInfo')
 def getSystemInfoHistory():
-    response = systemInfo.getSystemHistory()
+    response = getSystemHistory()
     return json.dumps(response)
 
 # 修改节点配置信息

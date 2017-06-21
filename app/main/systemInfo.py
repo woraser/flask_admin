@@ -44,7 +44,7 @@ def getRunTime():
     return res[0]
     pass
 
-# 获取硬盘总量
+# 获取硬盘总量 kb
 def getHardDiskTotal():
     with os.popen("df | awk '{print $2}'") as ps:
         res = ps.read().strip().split("\n")
@@ -52,7 +52,7 @@ def getHardDiskTotal():
     return sum(int_list)
     pass
 
-# 获取硬盘使用量
+# 获取硬盘使用量 kb
 def getHardDiskUsed():
     with os.popen("df | awk '{print $3}'") as ps:
         res = ps.read().strip().split("\n")
@@ -60,31 +60,34 @@ def getHardDiskUsed():
     return sum(int_list)
     pass
 
-# 获取硬盘的使用率
+# 获取硬盘的使用率 %
 def getHardDiskUseage():
     df_total = getHardDiskTotal()
     df_used = getHardDiskUsed()
     return round(df_used/df_total, 4)*100
 
+#
+# # build dict of dashboard for index
+# # 组装首页面板数据
+# def getDashboard():
+#     configInstance = configSingle.ConfigObj()
+#     config_obj = configInstance.config_obj
+#     dashboard_dict = {
+#         "id": config_obj.get("system_conf", "unique_id"),
+#         "GPS": config_obj.get("system_conf", "gps"),
+#         # "runtime": int(int(getRunTime())/60/60)
+#         # "hd_total": str(round(getHardDiskTotal()/1024, 2) )+"M",
+#         # "hd_usage": str(getHardDiskUseage())+"%",
+#         "runtime": int(200400 / 60 / 60),
+#         "hd_total": int(200400 / 60 / 60),
+#         "hd_usage": "50%",
+#     }
+#     return dashboard_dict
+#     pass
 
-# build dict of dashboard for index
-# 组装首页面板数据
-def getDashboard():
-
-    configInstance = configSingle.ConfigObj()
-    config_obj = configInstance.config_obj
-    dashboard_dict = {
-        "id": config_obj.get("system_conf", "unique_id"),
-        "GPS": config_obj.get("system_conf", "gps"),
-        # "runtime": int(int(getRunTime())/60/60)
-        "runtime": int(200400 / 60 / 60)
-    }
-    return dashboard_dict
-    pass
-
-def getSystemHistory(limit=500):
-    orderBy = ('id', 'desc')
-    cursor = getTablePageByCls("SystemInfo", limit=limit, order=orderBy)
-    return cursor
-    pass
+# def getSystemHistory(limit=500):
+#     orderBy = ('id', 'desc')
+#     cursor = getTablePageByCls("SystemInfo", limit=limit, order=orderBy)
+#     return cursor
+#     pass
 
