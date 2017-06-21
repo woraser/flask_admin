@@ -65,7 +65,7 @@ var sensorMangerController = {
         });
     },
     showDetail:function(val){
-	    alert("123");
+	    window.location.href="/sensorDetail/"+val;
 
     },
     updateSetting:function (val) {

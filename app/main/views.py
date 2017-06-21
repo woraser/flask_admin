@@ -66,9 +66,12 @@ def updateNodeConfig():
 def sensorManger():
     return render_template('sensorManger.html')
 
-@main.route('/sensorDetail', methods=['GET'])
-def sensorDetail():
-    return render_template('sensorDetail.html')
+@main.route('/sensorDetail/<id>', methods=['GET'])
+def sensorDetail(id=None):
+    if not id:
+        redirect(url_for('main.sensorManger'))
+    sensorInfo = findOneByClsAndId("Sensor", id)
+    return render_template('sensorDetail.html', sensorInfo=sensorInfo)
 
 
 # 获取单个
