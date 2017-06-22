@@ -50,8 +50,9 @@ class Sensor(BaseModel):
 # 传感器数据采集表
 class SensorData(BaseModel):
     id = IntegerField(primary_key=True)
-    sensor_no = CharField(verbose_name='传感器序列号', max_length=20)
-    val = CharField(verbose_name='采集值', max_length=20)
+    sensor_no = CharField(verbose_name='传感器序列号', max_length=50)
+    param_name = CharField(verbose_name='采集参数名称', max_length=50)
+    val = CharField(verbose_name='采集值', max_length=50)
     created_time = IntegerField(verbose_name='创建时间,时间戳便于传输')
     is_post = BooleanField(verbose_name='是否已推送', default=False)
 

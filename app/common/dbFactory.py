@@ -50,9 +50,8 @@ def getTablePageByCls(cla_name, offset=0, limit=10,order=None):
     return res
 
 # 动态插入传感器数据
-def insertSensorCollect(cls_name, sensor_name, val):
-    cls = getModelClsByName(cls_name)
-    row = buildSensorRow(sensor_name, val)
+def insertSensorCollect(cls, sensor_no, param_name, val):
+    row = buildSensorRow(sensor_no, param_name,  val)
     return cls.insert(row).execute()
 
 # 批量插入数据 事务支持@db.atomic()
@@ -79,10 +78,11 @@ def findOneByIdFromDb(cls, unique_id):
     return cls.get(cls.id == unique_id)
 
 # 构建传感器数据row
-def buildSensorRow(sensor_name, val):
+def buildSensorRow(sensor_no, param_name, val):
     return {
         "created_time": time.time(),
-        "sensor_name": sensor_name,
+        "sensor_no": sensor_no,
+        "param_name": param_name,
         "val": val
     }
 

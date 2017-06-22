@@ -38,8 +38,6 @@ manager = Manager(app)
 # manager.add_command('db', MigrateCommand)
 
 
-
-
 # start the app when execute command:python manage.py
 if __name__ == '__main__':
     # manager.run()

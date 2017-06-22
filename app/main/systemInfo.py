@@ -29,7 +29,7 @@ def getRamUsage():
     RAM_total = round(int(RAM_stats[0]) / 1000, 1)
     RAM_used = round(int(RAM_stats[1]) / 1000, 1)
     # RAM_free = round(int(RAM_stats[2]) / 1000, 1)  # Disk information
-    RAM_usage = round(float(RAM_used / RAM_total), 2)
+    RAM_usage = round(float(RAM_used / RAM_total), 2)*100
     return RAM_usage
 
 
@@ -65,29 +65,3 @@ def getHardDiskUseage():
     df_total = getHardDiskTotal()
     df_used = getHardDiskUsed()
     return round(df_used/df_total, 4)*100
-
-#
-# # build dict of dashboard for index
-# # 组装首页面板数据
-# def getDashboard():
-#     configInstance = configSingle.ConfigObj()
-#     config_obj = configInstance.config_obj
-#     dashboard_dict = {
-#         "id": config_obj.get("system_conf", "unique_id"),
-#         "GPS": config_obj.get("system_conf", "gps"),
-#         # "runtime": int(int(getRunTime())/60/60)
-#         # "hd_total": str(round(getHardDiskTotal()/1024, 2) )+"M",
-#         # "hd_usage": str(getHardDiskUseage())+"%",
-#         "runtime": int(200400 / 60 / 60),
-#         "hd_total": int(200400 / 60 / 60),
-#         "hd_usage": "50%",
-#     }
-#     return dashboard_dict
-#     pass
-
-# def getSystemHistory(limit=500):
-#     orderBy = ('id', 'desc')
-#     cursor = getTablePageByCls("SystemInfo", limit=limit, order=orderBy)
-#     return cursor
-#     pass
-

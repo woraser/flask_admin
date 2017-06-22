@@ -12,10 +12,10 @@ import random
 
 # 获取系统运行参数 插入数据库
 def recordSystemInfo():
-    # cpu_free = systemInfo.getCpuFree()
-    # ram_usage = systemInfo.getRamUsage()
-    # if cpu_free:
-    #     cpu_free = cpu_free.replace("%", "")
+    cpu_free = systemInfo.getCpuFree()
+    ram_usage = systemInfo.getRamUsage()
+    if cpu_free:
+        cpu_free = cpu_free.replace("%", "")
     # row = {
     #     "cpu_usage": 100-int(cpu_free),
     #     "ram_usage": ram_usage,

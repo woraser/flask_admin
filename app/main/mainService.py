@@ -32,8 +32,8 @@ def getDashboard():
     dashboard_dict = {
         "id": config_obj.get("system_conf", "unique_id"),
         "GPS": config_obj.get("system_conf", "gps"),
-        # "runtime": int(int(getRunTime())/60/60),
-        # "hd_total": str(round(getHardDiskTotal()/1024, 2) )+"M",
+        # "runtime": round(float(getRunTime())/60/60, 2),
+        # "hd_total": str(round(getHardDiskTotal()/1024, 2))+"M",
         # "hd_usage": str(getHardDiskUseage())+"%"
         "runtime": int(200400 / 60 / 60),
         "hd_total": "250M",

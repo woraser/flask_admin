@@ -4,7 +4,6 @@
 
 from flask import render_template, json, session, redirect, url_for, request
 from . import main
-from peewee import Expression
 from app.commonUtil import buildErr,buildSucc,buildNone
 from app.common.dbFactory import findOneByClsAndId
 from mainService import updateSensorByIdAndData,getDashboard, getSystemHistory
@@ -53,14 +52,14 @@ def sensorDetail(id=None):
 # 获取饼状图数据
 @main.route('/systemPieInfo')
 def getSystemInfo():
-    # res = {
-    #     "cpu_free": systemInfo.getCpuFree(),
-    #     "ram_usage": systemInfo.getRamUsage()
-    # }
     res = {
-        "cpu_free": random.randint(0, 100),
-        "ram_usage": random.randint(0, 100)
+        "cpu_free": systemInfo.getCpuFree(),
+        "ram_usage": systemInfo.getRamUsage()
     }
+    # res = {
+    #     "cpu_free": random.randint(0, 100),
+    #     "ram_usage": random.randint(0, 100)
+    # }
     return json.dumps(res)
 
 # 获取折线图数据
