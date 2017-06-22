@@ -56,6 +56,7 @@ var sensorDetailController = {
             columns: [
                 { "title":"id","data": "id","orderable":false },
                 { "title":"传感器编号","data": "sensor_no","orderable":false },
+                 { "title":"参数名称","data": "param_name","orderable":false },
                 { "title":"采集时间","data": "created_time","orderable":false },
                 { "title":"采集数据","data": "val","orderable":false }
             ],
