@@ -5,6 +5,7 @@ import commons, ConfigParser, json, os
 from app.main import configSingle
 from systemJob import recordSystemInfo
 from sensorJob import runDht11Collect
+import sensorJob
 import logging
 
 logging.basicConfig()
@@ -34,7 +35,7 @@ class Quartz(object):
         sched.add_job(self.runSystemJob, 'interval', seconds=int(system_job_time))
         # 添加传感器时间
         # dht11 传感器
-        sched.add_job(self.runDht11Job, 'interval', seconds=int(10))
+        sched.add_job(runDht11Collect, 'interval', seconds=int(10))
 
 
         # sections = config.sections()
@@ -53,12 +54,6 @@ class Quartz(object):
     def runSystemJob():
         recordSystemInfo()
         pass
-
-    @staticmethod
-    def runDht11Job():
-        runDht11Collect()
-        pass
-
 
     def getTestSensorData(self):
         pass
