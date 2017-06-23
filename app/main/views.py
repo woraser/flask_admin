@@ -73,7 +73,7 @@ def getSystemInfoHistory():
 def updateNodeConfig():
     post_data = request.data
     configSingle.updateNodeConfig(json.loads(post_data))
-    return json.dumps({"status": 1})
+    return buildSucc("success")
     pass
 
 # 获取单个传感器详情

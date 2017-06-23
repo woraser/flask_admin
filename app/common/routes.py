@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Tip:通用模块
 from flask import jsonify, request, current_app, url_for, session, redirect
 from . import common
 from dbFactory import getTablePageByCls
-from ..commonUtil import buildDataTableResponse,getModelClsByName
+from ..commonUtil import buildDataTableResponse,getModelClsByName,buildSucc
 from ..quartzJob import remoteJob
 import json
 
@@ -26,4 +27,4 @@ def getTablePage(table_name):
 @common.route('/syncDbData')
 def syncDbData():
     remoteJob.post_db_data()
-    return jsonify({"status": "success"})
+    return buildSucc("success")

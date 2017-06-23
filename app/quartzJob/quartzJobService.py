@@ -12,7 +12,6 @@ from peewee import Expression
 def getActivitySensor():
     expression = Expression(Sensor.is_used, "=", True)
     # expression1 = Expression(Sensor.id, "=", "1")
-    # condition = expression
     # condition = condition and expression1
     return Sensor.select().where(expression)
     pass
