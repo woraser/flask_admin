@@ -21,7 +21,7 @@ def create_app():
     bootstrap.init_app(app)
 
     sched = quartz.addJobDynamic()
-    sched.start()
+    # sched.start()
     # register routes
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

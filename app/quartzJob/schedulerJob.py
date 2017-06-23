@@ -4,8 +4,9 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import commons, ConfigParser, json, os
 from app.main import configSingle
 from systemJob import recordSystemInfo
-from sensorJob import runDht11Collect
-import sensorJob
+# from sensorJob import runDht11Collect
+from sensorJob import SensorQuartz
+from .quartzJobService import getActivitySensor
 import logging
 
 logging.basicConfig()
@@ -35,8 +36,15 @@ class Quartz(object):
         sched.add_job(self.runSystemJob, 'interval', seconds=int(system_job_time))
         # 添加传感器时间
         # dht11 传感器
-        sched.add_job(runDht11Collect, 'interval', seconds=int(10))
+        sensorQuartz = SensorQuartz()
+        activity_sensor = getActivitySensor()
+        if activity_sensor is not None:
+            for sensor in activity_sensor:
+                sched.add_job(getattr(sensorQuartz, sensor.job_name), 'interval', seconds=int(10))
+                pass
 
+            pass
+        # sched.add_job(getattr(sensorQuartz, "runDht11Collect"), 'interval', seconds=int(10))
 
         # sections = config.sections()
         # for i in sections:

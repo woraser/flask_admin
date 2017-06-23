@@ -40,7 +40,12 @@ var sensorDetailController = {
                     offset :  d['start'],
                     pageSize :  d["length"],
                     pageNumber :  (d["start"] / d["length"] + 1),
-                    draw :  d['draw']
+                    draw :  d['draw'],
+                    condition:[{
+                        "key":"sensor_no",
+                        "op":"=",
+                        "val":"dht11_1"
+                    }]
                 };
                 //添加额外的参数传给服务器
                 return JSON.stringify(post_data);

@@ -46,20 +46,20 @@ def sensorManger():
 def sensorDetail(id=None):
     if not id:
         redirect(url_for('main.sensorManger'))
-    sensorInfo = findOneByClsAndId("Sensor", id)
+    sensorInfo = findOneByClsAndId(Sensor, id)
     return render_template('sensorDetail.html', sensorInfo=sensorInfo)
 
 # 获取饼状图数据
 @main.route('/systemPieInfo')
 def getSystemInfo():
-    res = {
-        "cpu_free": systemInfo.getCpuFree(),
-        "ram_usage": systemInfo.getRamUsage()
-    }
     # res = {
-    #     "cpu_free": random.randint(0, 100),
-    #     "ram_usage": random.randint(0, 100)
+    #     "cpu_free": systemInfo.getCpuFree(),
+    #     "ram_usage": systemInfo.getRamUsage()
     # }
+    res = {
+        "cpu_free": random.randint(0, 100),
+        "ram_usage": random.randint(0, 100)
+    }
     return json.dumps(res)
 
 # 获取折线图数据
@@ -79,7 +79,7 @@ def updateNodeConfig():
 # 获取单个传感器详情
 @main.route('/sensorInfo/<string:id>', methods=['GET'])
 def sensorInfo(id):
-    record = findOneByClsAndId("Sensor", id)
+    record = findOneByClsAndId(Sensor, id)
     if record is None:
         return buildNone()
     return buildSucc(record)

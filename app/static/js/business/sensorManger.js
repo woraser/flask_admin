@@ -35,7 +35,8 @@ var sensorMangerController = {
                     offset :  d['start'],
                     pageSize :  d["length"],
                     pageNumber :  (d["start"] / d["length"] + 1),
-                    draw :  d['draw']
+                    draw :  d['draw'],
+                    condition:null
                 };
                 //添加额外的参数传给服务器
                 return JSON.stringify(post_data);

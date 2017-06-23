@@ -6,7 +6,7 @@
 # Tip:
 from __future__ import division
 from app.main import configSingle
-from app.models import Sensor
+from app.models import Sensor,SystemInfo
 from systemInfo import getRunTime, getHardDiskTotal, getHardDiskUseage, getHardDiskUsed
 from app.common.dbFactory import getTablePageByCls
 import os
@@ -44,8 +44,7 @@ def getDashboard():
 
 # 获取系统运行参数历史记录
 def getSystemHistory(limit=500):
-    orderBy = ('id', 'desc')
-    cursor = getTablePageByCls("SystemInfo", limit=limit, order=orderBy)
+    cursor = getTablePageByCls(SystemInfo, limit=limit, order=SystemInfo.id.desc(), condition=None)
     return cursor
     pass
 

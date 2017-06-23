@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from ..decoratorUtil import catchDbException
 from ..models import db, User
+from peewee import Expression
 from ..commonUtil import convertDbObjToDict, getModelClsByName
 import time
 
@@ -21,8 +22,8 @@ def insertByCls(cla_name, data=None):
     return cls.insert(data).execute()
 
 # 根据类名和主键获得数据详情
-def findOneByClsAndId(Cla, id):
-    cls = getModelClsByName(Cla)
+def findOneByClsAndId(cls, id):
+    # cls = getModelClsByName(Cla)
     record = findOneByIdFromDb(cls, id)
     if record is not None:
         return convertDbObjToDict(record, cls)
@@ -36,11 +37,11 @@ def updateModelByWhere(cls, update_dict=None, condition=None):
     return cls.update(update_dict).where(condition).execute()
     pass
 
-# 根据model类名 获得分页数据
-def getTablePageByCls(cla_name, offset=0, limit=10,order=None):
-    cls = getModelClsByName(cla_name)
-    data_array = queryTableByCls(cls, offset, limit, order)
-    count = queryTotalByCls(cls)
+# 根据model类 获得分页数据
+def getTablePageByCls(cls, offset=0, limit=10,condition=None,order=None):
+    # cls = getModelClsByName(cla_name)
+    data_array = queryTableByCls(cls, offset, limit, condition, order)
+    count = queryTotalByCls(cls, condition)
     res = {}
     res.setdefault("count", count)
     content = []
@@ -62,15 +63,33 @@ def batchInsert(cls_name, insert_datas=None):
 
 # 根据类名，分页参数获取db数据
 @catchDbException
-def queryTableByCls(cls, offset=0, limit=10, order=None):
-    if order:
-        cls.select().order_by(order).offset(offset).limit(limit)
-    return cls.select().offset(offset).limit(limit)
+def queryTableByCls(cls, offset=0, limit=10, condition=None, order=None):
+    expresses = None
+    if condition:
+        for condi in condition:
+            if expresses is None:
+                expresses = Expression(getattr(cls,condi["key"]), condi["op"], condi["val"])
+                pass
+            else:
+                expresses = expresses and Expression(getattr(cls,condi["key"]), condi["op"], condi["val"])
+                pass
+            pass
+    return cls.select().where(expresses).order_by(order).offset(offset).limit(limit)
 
 # 根据类名获取db数据总量
 @catchDbException
-def queryTotalByCls(cls):
-    return cls.select().count()
+def queryTotalByCls(cls, condition=None):
+    expresses = None
+    if condition:
+        for condi in condition:
+            if expresses is None:
+                expresses = Expression(getattr(cls,condi["key"]), condi["op"], condi["val"])
+                pass
+            else:
+                expresses = expresses and Expression(getattr(cls,condi["key"]), condi["op"], condi["val"])
+                pass
+            pass
+    return cls.select().where(expresses).count()
 
 # 根据类名和id获取db数据
 @catchDbException
