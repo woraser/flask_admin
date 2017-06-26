@@ -6,7 +6,7 @@ from peewee import *
 db = SqliteDatabase('./test3.db')
 
 def initDb():
-    db.create_tables([User, SensorData, SystemInfo, Sensor, EngineerEmail], safe=True)
+    db.create_tables([User, SensorData, SystemInfo, Sensor], safe=True)
     db.close()
 
 class BaseModel(Model):
@@ -46,7 +46,6 @@ class Sensor(BaseModel):
     accessPort = CharField(verbose_name='接入端口名称', max_length=200)
     is_used = BooleanField(verbose_name='是否启用', default=True)
 
-
 # 传感器数据采集表
 class SensorData(BaseModel):
     id = IntegerField(primary_key=True)
@@ -55,14 +54,6 @@ class SensorData(BaseModel):
     val = CharField(verbose_name='采集值', max_length=50)
     created_time = IntegerField(verbose_name='创建时间,时间戳便于传输')
     is_post = BooleanField(verbose_name='是否已推送', default=False)
-
-# 收件人邮箱
-class EngineerEmail(BaseModel):
-    id = IntegerField(primary_key=True)
-    account = CharField(verbose_name='收件邮箱', max_length=200)
-    user_name = CharField(verbose_name='收件人名称', max_length=100)
-    is_used = BooleanField(verbose_name='是否启用', default=True)
-    created_time = CharField(verbose_name='创建时间', max_length=50)
 
 # 系统运行监控数据
 class SystemInfo(BaseModel):

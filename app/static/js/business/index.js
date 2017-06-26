@@ -314,11 +314,6 @@ var dashboardController = {
 		var update_config= {
 			location : $(".bootbox-body .location").val().trim(),
 			full_name : $(".bootbox-body .full_name").val().trim(),
-			email_account : $(".bootbox-body .email_account").val().trim(),
-			email_host : $(".bootbox-body .email_host").val().trim(),
-			email_port : $(".bootbox-body .email_port").val().trim(),
-			email_sender : $(".bootbox-body .email_sender").val().trim(),
-			email_pwd : $(".bootbox-body .email_pwd").val().trim(),
 			remote_address : $(".bootbox-body .remote_address").val().trim()
 		};
 		$.ajax({

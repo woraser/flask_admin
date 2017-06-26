@@ -11,49 +11,30 @@ from ..commonUtil import convertDbObjToDict
 from ..main.configSingle import ConfigObj
 import requests, json
 
+# 对比推送数据库数据
 def post_db_data():
     domain_address = ConfigObj().get("internet_conf", 'remote_address')
     post_url = ""
-    post_data = getSyncDbData()
+    post_data = getSyncSensor()
     requests.post(post_url, json.dumps(post_data))
     pass
 
-
-def getSyncDbData():
+# 获取等待同步的传感器数据
+def getSyncSensor():
     response = {}
-    email_data = queryTotalByCls("EngineerEmail")
     sensor_setting = queryTotalByCls("Sensor")
-    if email_data:
-        response["email"] = convertDbObjToDict(email_data, "EngineerEmail")
     if sensor_setting:
         response["sensor"] = convertDbObjToDict(sensor_setting, "Sensor")
     return response
     pass
 
 
-# 获取传感器采集数据 数据上限 200
-def getSyncSensorData(limit=200):
-    cursor = SensorData.select().where(SensorData.is_post==False).limit(limit)
+# 获取未发送的传感器采集数据 每次数量：200
+def getSyncSensorData():
+    cursor = getUnPostSensorData()
     return cursor
-    pass
-
-
-def getSensorSetting():
-    email_data = queryTotalByCls("Sensor")
-    if not email_data:
-        return None
-    pass
-    pass
-
-def getEmailData():
-    email_data = queryTotalByCls("EngineerEmail")
-    if not email_data:
-        return None
-    pass
-
-def getSystemInfo():
     pass
 
 @catchDbException
 def getUnPostSensorData():
-    return SensorData.select().where(SensorData.is_post==False).limit(limit)
+    return SensorData.select().where(SensorData.is_post==False).order_by(SensorData.id.desc()).limit(limit)

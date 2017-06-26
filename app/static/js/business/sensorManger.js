@@ -121,7 +121,6 @@ var sensorMangerController = {
 			}
 		});
 		var update_config= {
-			unique_id : $(".bootbox-body .unique_id").val().trim(),
 			sensor_no : $(".bootbox-body .sensor_no").val().trim(),
 			max_limit : $(".bootbox-body .max_limit").val().trim(),
 			min_limit : $(".bootbox-body .min_limit").val().trim(),
