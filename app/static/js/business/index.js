@@ -283,7 +283,7 @@ var dashboardController = {
 	},
 	"showDialogForConfig":function(){
 		var html_=$("#configFormDiv").html();
-        var dialog = new bootbox.dialog({
+        new bootbox.dialog({
             message: html_,
             title: "传感器配置",
             buttons: {
@@ -302,7 +302,6 @@ var dashboardController = {
         }
             }
         });
-        // $(".modal-dialog").css({"top":"30%","left":"35%"});
     },
 	updateNodeConfig:function () {
 		$(".modal-dialog input").each(function(){
@@ -325,7 +324,6 @@ var dashboardController = {
 			success:function(result){
 				window.location.reload();
 			}
-
 		});
 
     }
