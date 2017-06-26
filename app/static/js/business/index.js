@@ -302,8 +302,7 @@ var dashboardController = {
         }
             }
         });
-        $(".modal-dialog").css({"top":"30%","left":"35%"});
-        //
+        // $(".modal-dialog").css({"top":"30%","left":"35%"});
     },
 	updateNodeConfig:function () {
 		$(".modal-dialog input").each(function(){

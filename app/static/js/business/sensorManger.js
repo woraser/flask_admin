@@ -93,7 +93,7 @@ var sensorMangerController = {
         }
             }
         });
-        $(".modal-dialog").css({"top":"30%","left":"35%"});
+        // $(".modal-dialog").css({"top":"30%","left":"35%"});
         $.ajax({
 			type:"GET",
 			url:"/sensorInfo/"+val,

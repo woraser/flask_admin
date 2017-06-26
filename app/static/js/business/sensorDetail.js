@@ -20,7 +20,7 @@ var sensorDetailController = {
             scrollCollapse: true,
             bInfo : false,
             destroy:true,
-            sDom: '<"top"l>rt<"bottom_right"p><"clear">',
+            // sDom: '<"top"l>rt<"bottom"p><"clear">',
 			language: {
 			  emptyTable: "暂无数据",
               oPaginate : {
