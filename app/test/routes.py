@@ -9,7 +9,7 @@ from . import test
 from ..models import User
 from ..common.dbFactory import batchInsert
 from app.main.systemInfo import getRunTime
-from ..quartzJob import systemJob
+from ..quartzJob import systemJob,remoteJob
 import time
 
 @test.route("/testpeewee")
@@ -28,6 +28,15 @@ def testGetSystemInfo():
     # system_job.addSystemInfo()
     return jsonify({"result":getRunTime()})
     pass
+
+@test.route("/testPostSensor")
+def testPostSensor():
+    # system_job.addSystemInfo()
+    remoteJob.postSensorData()
+    return jsonify({"result":getRunTime()})
+    pass
+
+
 
 
 

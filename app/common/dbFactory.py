@@ -76,7 +76,7 @@ def queryTableByCls(cls, offset=0, limit=10, condition=None, order=None):
             pass
     return cls.select().where(expresses).order_by(order).offset(offset).limit(limit)
 
-# 根据类名获取db数据总量
+# 根据类名获取db数据总量 query count
 @catchDbException
 def queryTotalByCls(cls, condition=None):
     expresses = None
