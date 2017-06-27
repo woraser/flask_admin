@@ -37,7 +37,7 @@ def postSensor():
 # 获取节点上所有的传感器数据
 def __getSyncSensor():
     response = {}
-    sensor_setting = queryTableByCls(Sensor,limit=200)
+    sensor_setting = queryTableByCls(Sensor, limit=200)
     if sensor_setting:
         response["sensor"] = convertDbObjToDict(sensor_setting, Sensor)
     return response
@@ -68,7 +68,7 @@ def __buildPostData(data=None):
             })
             id_array.append(i.id)
             pass
-    return post_array,id_array
+    return post_array, id_array
     pass
 
 # 传感器采集数据推送完成之后 修改推送状态 避免二次推送

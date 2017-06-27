@@ -33,7 +33,7 @@ class Quartz(object):
         # 添加系统任务
         system_time = config.get("system_conf", "system_job_time")
         system_job_time = system_time if isinstance(system_time, int) else 10
-        sched.add_job(self.runSystemJob, 'interval', seconds=int(system_job_time))
+        sched.add_job(recordSystemInfo, 'interval', seconds=int(system_job_time))
         # 添加传感器时间
         # dht11 传感器
         sensorQuartz = SensorQuartz()
@@ -42,7 +42,6 @@ class Quartz(object):
             for sensor in activity_sensor:
                 sched.add_job(getattr(sensorQuartz, sensor.job_name), 'interval', seconds=int(10))
                 pass
-
             pass
         # sched.add_job(getattr(sensorQuartz, "runDht11Collect"), 'interval', seconds=int(10))
 
@@ -56,12 +55,6 @@ class Quartz(object):
         #         pass
         #     pass
         return sched
-
-
-    @staticmethod
-    def runSystemJob():
-        recordSystemInfo()
-        pass
 
     def getTestSensorData(self):
         pass
