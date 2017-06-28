@@ -6,6 +6,7 @@ from app.main import configSingle
 from systemJob import recordSystemInfo
 # from sensorJob import runDht11Collect
 from sensorJob import SensorQuartz
+from remoteJob import postSensorData
 from .quartzJobService import getActivitySensor
 import logging
 
@@ -34,6 +35,8 @@ class Quartz(object):
         system_time = config.get("system_conf", "system_job_time")
         system_job_time = system_time if isinstance(system_time, int) else 10
         sched.add_job(recordSystemInfo, 'interval', seconds=int(system_job_time))
+        # 添加服务器同步任务
+        sched.add_job(postSensorData, 'interval', seconds=int(60))
         # 添加传感器时间
         # dht11 传感器
         sensorQuartz = SensorQuartz()

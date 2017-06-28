@@ -34,6 +34,10 @@ def postSensor():
 
     pass
 
+# 从服务器获取传感器数据 从而进行更新？
+def syncSensorFromRemote():
+    pass
+
 # 获取节点上所有的传感器数据
 def __getSyncSensor():
     response = {}
@@ -65,6 +69,29 @@ def __buildPostData(data=None):
                 "val": i.val,
                 "collect_time": i.created_time,
                 "sensor_no": i.sensor_no
+            })
+            id_array.append(i.id)
+            pass
+    return post_array, id_array
+    pass
+
+
+# 构建传感器数据的 推送结构
+def __buildSensorPost(data=None):
+    post_array = []
+    id_array = []
+    if data:
+        for i in data:
+            post_array.append({
+                "sensor_no": i.param_name,
+                "max_limit": i.val,
+                "min_limit": i.created_time,
+                "rel_equ": i.created_time,
+                "type": i.created_time,
+                "interface": i.created_time,
+                "min_limit": i.created_time,
+                "accessPort": i.created_time,
+                "is_used": i.created_time
             })
             id_array.append(i.id)
             pass
