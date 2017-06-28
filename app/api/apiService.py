@@ -4,14 +4,16 @@
 # createDate:2017/6/28
 # Title:
 # Tip:
-from app.models import Sensor
 from peewee import Expression
-import commons
+from app.models import Sensor
 from app.common.dbFactory import updateModelByWhere
+from collections import defaultdict
 
-
+# 远程修改传感器参数 主要修改传感器上下限 是否启用
 def updateSensorByRemote(post_data):
-    exp_list = [Expression(getattr(Sensor, k), "=", v) for k, v in post_data]
-
+    exp_list = [Expression(getattr(Sensor, k), "=", v) for k, v in post_data if k != "id"]
+    condition = Expression(Sensor.id, "=", post_data["id"])
+    res = updateModelByWhere(Sensor, exp_list, condition)
+    return res
 
     pass
