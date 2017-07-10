@@ -1,25 +1,30 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
-
 from app.quartzJob.schedulerJob import Quartz
 from main import configSingle
 from models import initDb, User
+from app.mqtt.mqttClient import MqttClientSingle
 import ConfigParser
 import os
 
 bootstrap = Bootstrap()
+# db
 db = initDb()
+# job
 quartz = Quartz()
+# config single
 configInstance = configSingle.ConfigObj()
+# mqtt single
+mqttClient = MqttClientSingle()
+
+
 def create_app():
     app = Flask(__name__)
     app.secret_key = 'unable to guessing pwd!@#$%'
-
     configInstance.config_obj.set("project_conf", "base_dir", os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
     configInstance.flushConfig()
 
     bootstrap.init_app(app)
-
     sched = quartz.addJobDynamic()
     # sched.start()
     # register routes

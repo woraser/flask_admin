@@ -8,7 +8,6 @@ from flask import render_template, redirect, request, url_for, flash, session
 from app.commonUtil import buildSucc,buildNone,buildErr
 from peewee import Expression
 from app.common.dbFactory import updateModelByWhere
-from . import auth
 from ..models import User
 import json
 from app.models import Sensor

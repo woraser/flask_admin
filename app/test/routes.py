@@ -11,6 +11,8 @@ from ..common.dbFactory import batchInsert
 from app.main.systemInfo import getRunTime
 from ..quartzJob import systemJob,remoteJob
 import time
+from app.mqtt.mqttClient import MqttClientSingle
+
 
 @test.route("/testpeewee")
 def testpeewee():
@@ -36,6 +38,15 @@ def testPostSensor():
     return jsonify({"result":getRunTime()})
     pass
 
+@test.route("/testMqtt")
+def testMqtt():
+    mqttCilent = MqttClientSingle()
+    mqttCilent2 = MqttClientSingle()
+    # print id(mqttCilent)
+    # print id(mqttCilent2)
+    mqttCilent.mattClient.publish("helloTopic", "message")
+    return jsonify({"result": getRunTime()})
+    pass
 
 
 
