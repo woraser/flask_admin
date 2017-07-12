@@ -52,7 +52,7 @@ def getModelClsByName(cls_name):
     cls = getattr(mode, cls_name)
     return cls
 
-
+# 生成返回obj->成功
 def buildSucc(data):
     res = {
         "status": 1,
@@ -61,6 +61,7 @@ def buildSucc(data):
     return json.dumps(res)
     pass
 
+# 生成返回obj->失败
 def buildErr(msg):
     res = {
         "status": 0,
@@ -69,6 +70,7 @@ def buildErr(msg):
     return json.dumps(res)
     pass
 
+# 生成返回obj->无返回结果
 def buildNone():
     res = {
         "status": 2,
@@ -77,3 +79,6 @@ def buildNone():
     return json.dumps(res)
     pass
 
+# 转换参数
+def convertObj(*args, **kwargs):
+    pass

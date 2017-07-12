@@ -13,6 +13,7 @@ import requests, json
 
 # 推送传感器采集数据
 def postSensorData():
+    print "postSensorData"
     domain_address = ConfigObj().config_obj.get("internet_conf", 'remote_address')
     post_url = "/".join(["http:/", domain_address, "services/test.lua"])
     post_data = __getSyncSensorData()

@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
-from app.quartzJob.schedulerJob import Quartz
 from main import configSingle
+from app.quartzJob.schedulerJob import Quartz
 from models import initDb, User
 from app.mqtt.mqttClient import MqttClientSingle
 import ConfigParser
@@ -25,8 +25,8 @@ def create_app():
     configInstance.flushConfig()
 
     bootstrap.init_app(app)
-    sched = quartz.addJobDynamic()
-    # sched.start()
+    quartz.addJobDynamic()
+    quartz.startJob()
     # register routes
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

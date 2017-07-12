@@ -6,15 +6,21 @@
 # Tip:
 from __future__ import division
 from app.main import configSingle
-from app.models import Sensor,SystemInfo
-from systemInfo import getRunTime, getHardDiskTotal, getHardDiskUseage, getHardDiskUsed
+from app.models import Sensor, SystemInfo
+from app.common.dbFactory import findOneByClsAndId
 from app.common.dbFactory import getTablePageByCls
+from app.quartzJob.schedulerJob import Quartz
 import os
-
-
 
 # 修改传感器数据
 def updateSensorByIdAndData(id=None, update_data=None):
+    record = findOneByClsAndId(Sensor, id)
+    if record:
+        if record["job_time"] != int(update_data["job_time"]):
+            quartz = Quartz()
+            quartz.updateJobTimeForSensor(record["job_name"], update_data["job_time"], update_data["sensor_no"])
+            pass
+        pass
     update_data = {
         Sensor.sensor_no: update_data["sensor_no"],
         Sensor.max_limit: update_data["max_limit"],

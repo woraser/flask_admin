@@ -12,6 +12,7 @@ from app.main.systemInfo import getRunTime
 from ..quartzJob import systemJob,remoteJob
 import time
 from app.mqtt.mqttClient import MqttClientSingle
+from app.quartzJob.schedulerJob import Quartz
 
 
 @test.route("/testpeewee")
@@ -42,9 +43,34 @@ def testPostSensor():
 def testMqtt():
     mqttCilent = MqttClientSingle()
     mqttCilent2 = MqttClientSingle()
-    # print id(mqttCilent)
-    # print id(mqttCilent2)
+    if mqttCilent.__eq__(mqttCilent2):
+        print "single class"
+        pass
+    print id(mqttCilent)
+    print id(mqttCilent2)
     mqttCilent.mattClient.publish("helloTopic", "message")
+    return jsonify({"result": getRunTime()})
+    pass
+
+def testSay():
+    print "added quartz job"
+
+@test.route("/testAddJob")
+def testAddJob():
+    quartz = Quartz()
+    quartz.getAllJobs()
+    quartz.sched.pause()
+    quartz.sched.add_job(testSay, 'interval', seconds=int(2), id="testSay")
+    quartz.sched.resume()
+    return jsonify({"result": getRunTime()})
+    pass
+
+@test.route("/deleteJob")
+def removeAddJob():
+    quartz = Quartz()
+    quartz.sched.pause()
+    quartz.sched.remove_job("testSay")
+    quartz.sched.resume()
     return jsonify({"result": getRunTime()})
     pass
 

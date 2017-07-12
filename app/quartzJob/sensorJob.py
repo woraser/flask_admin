@@ -32,7 +32,7 @@ class SensorQuartz(object):
         #         pass
         insertSensorCollect(SensorData, "dht11_1", "湿度", str(random.randint(0, 100)) + "%")
         insertSensorCollect(SensorData, "dht11_1", "温度", str(random.randint(0, 100)) + "°c")
-        print "sensor data ok"
+        print "runDht11Collect"
         pass
 
     pass

@@ -16,6 +16,7 @@ def catchDbException(func):
 
 
 # 单例模式
+# 可以使用__new__魔法变量来代替
 def singleton(cls, *args, **kw):
     instances = {}
     def _singleton():
@@ -23,4 +24,5 @@ def singleton(cls, *args, **kw):
             instances[cls] = cls(*args, **kw)
         return instances[cls]
     return _singleton
+
 

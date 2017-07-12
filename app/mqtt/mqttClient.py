@@ -17,9 +17,9 @@ class MqttClientSingle(object):
             self._mattClient = initMqttClient()
     pass
 
-    def __new__(cls, *args, **kwd):
+    def __new__(cls, *args, **kwargs):
         if MqttClientSingle.__instance is None:
-            MqttClientSingle.__instance = object.__new__(cls, *args, **kwd)
+            MqttClientSingle.__instance = object.__new__(cls, *args, **kwargs)
         return MqttClientSingle.__instance
 
     @property
@@ -40,6 +40,7 @@ def initMqttClient():
     pass
     pass
 
+# init app class for config
 class App(object):
     config = {}
     def __init__(self):
@@ -47,8 +48,6 @@ class App(object):
         pass
 
     pass
-
-
 
 
 if __name__ == '__main__':

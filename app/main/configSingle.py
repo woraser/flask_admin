@@ -17,7 +17,6 @@ class ConfigObj(object):
                 self.config_obj.readfp(fp)
         pass
 
-
     def flushConfig(self):
         with open('config.ini', 'w') as fp:
             self.config_obj.write(fp)

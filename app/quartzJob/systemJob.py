@@ -27,5 +27,5 @@ def recordSystemInfo():
         "collect_time": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     }
     insertByCls("SystemInfo", row)
-    print "123"
+    print "recordSystemInfo"
     pass
