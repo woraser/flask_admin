@@ -7,7 +7,8 @@
 from app.decoratorUtil import catchDbException
 from app.models import Sensor
 from peewee import Expression
-# 所有活动这的传感器数据
+
+# 获得所有活动的传感器数据
 @catchDbException
 def getActivitySensor():
     expression = Expression(Sensor.is_used, "=", True)

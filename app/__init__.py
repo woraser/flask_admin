@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from main import configSingle
 from app.quartzJob.schedulerJob import Quartz
 from models import initDb, User
-from app.mqtt.mqttClient import MqttClientSingle
+# from app.mqtt.mqttClient import MqttClientSingle
 import ConfigParser
 import os
 
@@ -15,12 +15,13 @@ quartz = Quartz()
 # config single
 configInstance = configSingle.ConfigObj()
 # mqtt single
-mqttClient = MqttClientSingle()
+# mqttClient = MqttClientSingle()
 
-
+# create application
 def create_app():
     app = Flask(__name__)
     app.secret_key = 'unable to guessing pwd!@#$%'
+    # add default configObject path
     configInstance.config_obj.set("project_conf", "base_dir", os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
     configInstance.flushConfig()
 

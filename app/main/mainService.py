@@ -10,9 +10,10 @@ from app.models import Sensor, SystemInfo
 from app.common.dbFactory import findOneByClsAndId
 from app.common.dbFactory import getTablePageByCls
 from app.quartzJob.schedulerJob import Quartz
-import os
+from systemInfo import getRunTime,getHardDiskTotal,getHardDiskUseage
 
 # 修改传感器数据
+# 若采集任务周期改变 需要动态修改定时任务
 def updateSensorByIdAndData(id=None, update_data=None):
     record = findOneByClsAndId(Sensor, id)
     if record:
@@ -21,6 +22,7 @@ def updateSensorByIdAndData(id=None, update_data=None):
             quartz.updateJobTimeForSensor(record["job_name"], update_data["job_time"], update_data["sensor_no"])
             pass
         pass
+    # 更改数据的传感器数据
     update_data = {
         Sensor.sensor_no: update_data["sensor_no"],
         Sensor.max_limit: update_data["max_limit"],

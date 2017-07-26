@@ -3,7 +3,7 @@
 # author:Charles.chen
 # createDate:2017/6/30
 # Title:
-# Tip:
+# Tip: mqtt客户端 单例模式
 
 from flask_mqtt import Mqtt
 from app.main import configSingle
@@ -51,6 +51,7 @@ class App(object):
 
 
 if __name__ == '__main__':
+    # test
     mqtt = MqttClientSingle()
     print id(MqttClientSingle())
     print id(MqttClientSingle())

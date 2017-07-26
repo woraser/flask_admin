@@ -23,7 +23,7 @@ def before_request():
 def after_request(response):
     return response
 
-# 进入首页
+# 进入默认页面
 @main.route('/', methods=['GET', 'POST'])
 def index():
     dashboard = getDashboard()

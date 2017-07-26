@@ -80,5 +80,16 @@ def buildNone():
     pass
 
 # 转换参数
-def convertObj(*args, **kwargs):
+def convertObj():
     pass
+
+# 获取当前时间
+def getNow():
+
+    pass
+
+def getScore():
+
+
+    pass
+

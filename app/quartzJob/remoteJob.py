@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # author:Charles.chen
 # createDate:2017/6/14
-# Title:远程同步脚本，用于同步传感器数据(db:Sensor)，配置文件，邮箱数据(db:EngineerEmail)
+# Title:远程同步脚本，用于同步传感器数据(db:Sensor)，配置文件
 # Tip:
 from ..common.dbFactory import queryTableByCls
 from ..models import SensorData, Sensor

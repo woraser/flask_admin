@@ -17,7 +17,6 @@ class Quartz(object):
     __instance = None
 
     def __init__(self):
-        # unique
         if self.sched is None:
             self.sched = BackgroundScheduler(gconfig={'timezone': 'Asia/Shanghai'}, prefix=None)
         pass
@@ -28,6 +27,7 @@ class Quartz(object):
         return Quartz.__instance
 
     def getAllJobs(self):
+        # print all jobs
         self.sched.print_jobs()
         return self.sched.get_jobs()
 
@@ -38,13 +38,11 @@ class Quartz(object):
     def startJob(self):
         self.sched.start()
 
-
     def addJobDynamic(self):
         configInstance = configSingle.ConfigObj()
         base_dir = configInstance.config_obj.get("project_conf", "base_dir")
         config_path = os.path.join(base_dir, "config.ini")
         # 初始化任务器 设置默认时区
-        # sched = BackgroundScheduler(gconfig={'timezone': 'Asia/Shanghai'}, prefix=None)
         config = configInstance.config_obj
         # 添加系统任务
         system_time = config.get("system_conf", "system_job_time")
@@ -61,17 +59,6 @@ class Quartz(object):
                 self.sched.add_job(getattr(sensorQuartz, sensor.job_name), 'interval', seconds=int(sensor.job_time),id=str(sensor.sensor_no))
                 pass
             pass
-        # sched.add_job(getattr(sensorQuartz, "runDht11Collect"), 'interval', seconds=int(10))
-
-        # sections = config.sections()
-        # for i in sections:
-        #     if str(i).startswith('quartzJob'):
-        #         job_name = config.get(i, 'job_name')
-        #         job_time = config.get(i, 'job_time')
-        #         if job_name is not None and job_time is not None and getattr(Quartz(), job_name) != None:
-        #             sched.add_job(getattr(Quartz(), job_name), 'interval', seconds=int(job_time))
-        #         pass
-        #     pass
         return self.sched
 
     def updateJobTimeForSensor(self, job_name=None, job_time=None, sensor_no=None):
@@ -88,6 +75,4 @@ class Quartz(object):
 
 if __name__ == '__main__':
     pass
-    # q = Quartz()
-    # q.addJobDynamic().start()
 
