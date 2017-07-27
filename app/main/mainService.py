@@ -11,6 +11,8 @@ from app.common.dbFactory import findOneByClsAndId
 from app.common.dbFactory import getTablePageByCls
 from app.quartzJob.schedulerJob import Quartz
 from systemInfo import getRunTime,getHardDiskTotal,getHardDiskUseage
+from fileUpDownLoad import fileUpload,fileDownloadList,fileDownLoad
+import json
 
 # 修改传感器数据
 # 若采集任务周期改变 需要动态修改定时任务
@@ -54,5 +56,47 @@ def getDashboard():
 def getSystemHistory(limit=500):
     cursor = getTablePageByCls(SystemInfo, limit=limit, order=SystemInfo.id.desc(), condition=None)
     return cursor
+    pass
+
+# 上传当前配置文件
+def uploadConfigFile():
+    configInstance = configSingle.ConfigObj()
+    config_obj = configInstance.config_obj
+    uniqueId = config_obj.get("system_conf", "unique_id")
+    file_base_url = config_obj.get("internet_conf", "file_server")
+    filePath = 'config.ini'
+    url = "/".join([file_base_url, "fileUpload", "multipartFiles", uniqueId])
+    with open(filePath, "rb") as file:
+        res = fileUpload(file, url)
+        if isinstance(res, str):
+            res_dict = json.loads(eval(res))
+            return res_dict
+            pass
+        return res
+    pass
+
+# 获取该iotx上传的配置文件列表
+def getFileListFromUpload():
+    configInstance = configSingle.ConfigObj()
+    config_obj = configInstance.config_obj
+    uniqueId = config_obj.get("system_conf", "unique_id")
+    file_base_url = config_obj.get("internet_conf", "file_server")
+    url = "/".join([file_base_url, "fileDownload", "list", uniqueId])
+    # url格式为http://ip:port/fileDownload/list/{单片机SN}?page=0&size=10&sort=uploadtime,desc
+    # url = "http://10.2.0.135:8080/fileDownload/list/iotx1"
+    res = fileDownloadList(url)
+    if res is None or len(res) == 0:
+        return []
+    return eval(res)
+    pass
+
+def downLoadFileFromServer(id, file):
+    configInstance = configSingle.ConfigObj()
+    config_obj = configInstance.config_obj
+    file_base_url = config_obj.get("internet_conf", "file_server")
+    url = "/".join([file_base_url, "fileDownload", id])
+    fileDownLoad(url, file)
+
+
     pass
 

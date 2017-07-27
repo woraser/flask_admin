@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+from functools import wraps
 
 
 #捕获异常，常用于peewee查询为空时返回异常
@@ -24,5 +24,10 @@ def singleton(cls, *args, **kw):
             instances[cls] = cls(*args, **kw)
         return instances[cls]
     return _singleton
+
+# 记录运行日志
+def logging(func):
+
+    pass
 
 

@@ -6,7 +6,7 @@ from flask import render_template, json, session, redirect, url_for, request
 from . import main
 from app.commonUtil import buildErr,buildSucc,buildNone
 from app.common.dbFactory import findOneByClsAndId
-from mainService import updateSensorByIdAndData,getDashboard, getSystemHistory
+from mainService import updateSensorByIdAndData,getDashboard, getSystemHistory,uploadConfigFile,getFileListFromUpload,downLoadFileFromServer
 from app.models import Sensor
 import systemInfo,random,configSingle
 import sys
@@ -49,6 +49,11 @@ def sensorDetail(id=None):
     sensorInfo = findOneByClsAndId(Sensor, id)
     return render_template('sensorDetail.html', sensorInfo=sensorInfo)
 
+# 进入文件管理页面
+@main.route('/fileManger', methods=['GET'])
+def fileManger():
+    return render_template('fileManger.html')
+
 # 获取饼状图数据
 @main.route('/systemPieInfo')
 def getSystemInfo():
@@ -90,3 +95,59 @@ def sensorConfig(id):
     post_data = request.data
     result = updateSensorByIdAndData(id, json.loads(post_data))
     return buildSucc(result)
+
+# 上传当前的配置文件至服务器
+@main.route('/fileUpload', methods=['GET'])
+def uploadConfig():
+    # 文件上传
+    res = uploadConfigFile()
+    if isinstance(res, dict):
+        return buildSucc(res)
+    return buildErr("上传失败!")
+    pass
+
+# 获取上传配置文件列表
+@main.route('/fileTableList', methods=['GET'])
+def getFileList():
+    try:
+        fileList = getFileListFromUpload()
+        for item in list:
+            item["id"] = str(item["id"])
+            item["objectId"] = str(item["objectId"])
+            pass
+        pass
+    except Exception:
+        fileList = []
+        pass
+    finally:
+        response = {
+            "data": fileList,
+            "draw": 1,
+            "recordsTotal": len(fileList),
+            "recordsFiltered": len(fileList),
+        }
+        return json.dumps(response)
+    pass
+
+# 从远处服务器下载文件至本地
+@main.route('/downloadFile/<string:id>', methods=['GET'])
+def downLoadFile(id):
+    try:
+        with open("app/static/file/{0}.ini".format(id), 'w') as f:
+            downLoadFileFromServer(id, f)
+            pass
+            return buildSucc("ok")
+        pass
+    except Exception:
+        return buildErr("no")
+        pass
+    pass
+
+# 覆盖配置文件 重启项目
+@main.route('/restartServer/<string:id>', methods=['GET'])
+def restartServerWithConfig(id):
+    # reload config from /app/static/file/id.ini to config.ini
+
+    # restart server
+    buildSucc("ok")
+    pass

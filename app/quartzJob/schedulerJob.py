@@ -9,6 +9,8 @@ from quartzJobService import getActivitySensor
 import logging, os
 
 logging.basicConfig()
+# 定时任务总控制器
+# Quartz实现单例模式 防止在更改任务周期时出现重复任务
 # http://quanjie.leanote.com/post/Python%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E6%A8%A1%E5%9D%97-%E2%80%93-APScheduler-2
 __author__ = 'chen hui'
 
@@ -18,6 +20,7 @@ class Quartz(object):
 
     def __init__(self):
         if self.sched is None:
+            # 手动设置市区 避免在openWrt环境下报错
             self.sched = BackgroundScheduler(gconfig={'timezone': 'Asia/Shanghai'}, prefix=None)
         pass
 
@@ -48,9 +51,9 @@ class Quartz(object):
         system_time = config.get("system_conf", "system_job_time")
         system_job_time = system_time if isinstance(system_time, int) else 1
         self.sched.add_job(recordSystemInfo, 'interval', seconds=int(system_job_time), id=recordSystemInfo.func_name)
-        # 添加服务器同步任务
+        # 添加服务器数据同步任务
         self.sched.add_job(postSensorData, 'interval', seconds=int(60),id=postSensorData.func_name)
-        # 添加传感器时间
+        # 添加传感器采集任务
         # dht11 传感器
         sensorQuartz = SensorQuartz()
         activity_sensor = getActivitySensor()
@@ -61,12 +64,13 @@ class Quartz(object):
             pass
         return self.sched
 
+    # 修改传感器采集任务周期
     def updateJobTimeForSensor(self, job_name=None, job_time=None, sensor_no=None):
         sensorQuartz = SensorQuartz()
         self.sched.pause()
-        # remove old
+        # remove Invalid job
         self.removeJob(str(sensor_no))
-        # add new
+        # add new job
         self.sched.add_job(getattr(sensorQuartz, job_name), 'interval', seconds=int(job_time), id=str(sensor_no))
         # continue job
         self.sched.resume()
