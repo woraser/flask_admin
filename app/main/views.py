@@ -6,7 +6,7 @@ from flask import render_template, json, session, redirect, url_for, request
 from . import main
 from app.commonUtil import buildErr,buildSucc,buildNone
 from app.common.dbFactory import findOneByClsAndId
-from mainService import updateSensorByIdAndData,getDashboard, getSystemHistory,uploadConfigFile,getFileListFromUpload,downLoadFileFromServer
+from mainService import updateSensorByIdAndData,getDashboard, getSystemHistory,uploadConfigFile,getFileListFromUpload,downLoadFileFromServer, checkIsDownloaded
 from app.models import Sensor
 import systemInfo,random,configSingle
 import sys
@@ -106,14 +106,17 @@ def uploadConfig():
     return buildErr("上传失败!")
     pass
 
-# 获取上传配置文件列表
-@main.route('/fileTableList', methods=['GET'])
+# 分页获取上传配置文件列表
+@main.route('/fileTableList', methods=['POST'])
 def getFileList():
+    post_data = request.json
     try:
-        fileList = getFileListFromUpload()
-        for item in list:
+        fileObject = getFileListFromUpload(int(post_data['pageNumber'])-1, post_data['pageSize'])
+        fileList = fileObject["content"]
+        for item in fileList:
             item["id"] = str(item["id"])
             item["objectId"] = str(item["objectId"])
+            item["isDownload"] = checkIsDownloaded(item["objectId"])
             pass
         pass
     except Exception:
@@ -122,9 +125,9 @@ def getFileList():
     finally:
         response = {
             "data": fileList,
-            "draw": 1,
-            "recordsTotal": len(fileList),
-            "recordsFiltered": len(fileList),
+            "draw": post_data['draw'],
+            "recordsTotal": fileObject["totalElements"],
+            "recordsFiltered": fileObject["totalElements"],
         }
         return json.dumps(response)
     pass
@@ -147,6 +150,7 @@ def downLoadFile(id):
 @main.route('/restartServer/<string:id>', methods=['GET'])
 def restartServerWithConfig(id):
     # reload config from /app/static/file/id.ini to config.ini
+
 
     # restart server
     buildSucc("ok")

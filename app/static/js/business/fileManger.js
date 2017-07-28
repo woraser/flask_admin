@@ -23,12 +23,12 @@ var fileMangerController = {
             searching:false,
             paging: false,
 			ordering:false,
+			pageLength:20,
             bLengthChange:false,
             showNEntries: false,
             scrollCollapse: true,
             bInfo : false,
-            pageLength:1000,
-            destroy:false,
+            destroy:true,
 			language: {
 			  emptyTable: "暂无数据",
               oPaginate : {
@@ -38,29 +38,46 @@ var fileMangerController = {
                     "sLast" : "末页"
                 }
 			},
-           ajax: {
+            ajax: {
                 url:"/fileTableList",
-                type:"GET",
-                contentType : "application/json"
+                type:"POST",
+                contentType : "application/json",
+                data: function ( d ) {
+                var draw = d['draw'];
+                var post_data = {
+                    offset :  d['start'],
+                    pageSize :  d["length"],
+                    pageNumber :  (d["start"] / d["length"] + 1),
+                    draw :  d['draw'],
+                    condition:null
+                };
+                //添加额外的参数传给服务器
+                return JSON.stringify(post_data);
+                }
             },
             columns: [
                 { "title":"id","data": "objectId","orderable":false ,visible:false},
                 { "title":"上传时间","data": "uploadTime","orderable":false },
                  { "title":"文件大小(Byte)","data": "fileSize","orderable":false }
-            ],
+                 ],
             columnDefs:[{
                 targets: 3,
                 render: function (data, type, row, meta) {
-                    return '<a type="button" class="" href="#" onclick=fileMangerController.downloadFile("' + row.objectId + '") >下载</a>' +' | '+
-                        '<a type="button" class="" href="#" onclick=fileMangerController.enableFile("' + row.objectId + '") >启用</a>';
+                    return '<a type="button" class="download" href="#" readonly='+row.isDownload+' onclick=fileMangerController.downloadFile("' + row.objectId + '") >下载</a>' +'  '+
+                        '<a type="button" class="restart" href="#" readonly='+row.isDownload+' onclick=fileMangerController.enableFile("' + row.objectId + '") >启用</a>';
                 }
             },
                 { "orderable": false, "targets": 3 }
             ],
-            fnDrawCallback:function(){
-
-
-
+            fnCreatedRow:function(nRow, aData, iDataIndex){
+			    //只显示单个操作 下载||启用
+			    if(aData["isDownload"] == true){
+			        $(nRow).find(".download").hide();
+                    $(nRow).find(".restart").show();
+                }else{
+			        $(nRow).find(".download").show();
+                    $(nRow).find(".restart").hide();
+                }
             }
         });
     },
@@ -110,17 +127,21 @@ var fileMangerController = {
                         className: 'btn-danger'
                     }
                 },
-                //        返回结构 true 是 false 否
+                //返回结构 true 是 false 否
                 callback: function (result) {
                     console.log('This was logged in the callback: ' + result);
                     if (result == true){
+                    //    重启项目
+                        $.get("/restartServer/"+id,function () {
+
+                        });
 
                     }else{
                         return;
                     }
                 }
-});
-        
+        });
+
     }
 
 };

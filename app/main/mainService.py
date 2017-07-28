@@ -12,7 +12,7 @@ from app.common.dbFactory import getTablePageByCls
 from app.quartzJob.schedulerJob import Quartz
 from systemInfo import getRunTime,getHardDiskTotal,getHardDiskUseage
 from fileUpDownLoad import fileUpload,fileDownloadList,fileDownLoad
-import json
+import json, os
 
 # 修改传感器数据
 # 若采集任务周期改变 需要动态修改定时任务
@@ -76,18 +76,19 @@ def uploadConfigFile():
     pass
 
 # 获取该iotx上传的配置文件列表
-def getFileListFromUpload():
+def getFileListFromUpload(offset, pagesize):
     configInstance = configSingle.ConfigObj()
     config_obj = configInstance.config_obj
     uniqueId = config_obj.get("system_conf", "unique_id")
     file_base_url = config_obj.get("internet_conf", "file_server")
     url = "/".join([file_base_url, "fileDownload", "list", uniqueId])
+    url = url+"?page={0}&size={1}".format(offset, pagesize)
     # url格式为http://ip:port/fileDownload/list/{单片机SN}?page=0&size=10&sort=uploadtime,desc
     # url = "http://10.2.0.135:8080/fileDownload/list/iotx1"
     res = fileDownloadList(url)
     if res is None or len(res) == 0:
         return []
-    return eval(res)
+    return json.loads(res)
     pass
 
 def downLoadFileFromServer(id, file):
@@ -97,6 +98,14 @@ def downLoadFileFromServer(id, file):
     url = "/".join([file_base_url, "fileDownload", id])
     fileDownLoad(url, file)
 
+    pass
 
+# 判断该文件是否已经下载
+def checkIsDownloaded(objectId):
+    fileDir = "app/static/file/{0}.ini".format(objectId)
+    if os.path.exists(fileDir):
+        return True
+        pass
+    return False
     pass
 
