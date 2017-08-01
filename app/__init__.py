@@ -8,13 +8,16 @@ import ConfigParser
 import os
 
 bootstrap = Bootstrap()
-# db
-db = initDb()
+
 # job
 quartz = Quartz()
 # config single
 configInstance = configSingle.ConfigObj()
-# mqtt single
+
+# db
+db = initDb()
+
+# mqtt
 # mqttClient = MqttClientSingle()
 
 # create application
@@ -28,6 +31,8 @@ def create_app():
     bootstrap.init_app(app)
     quartz.addJobDynamic()
     quartz.startJob()
+    # init db
+
     # register routes
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

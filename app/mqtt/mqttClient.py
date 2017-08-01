@@ -14,6 +14,7 @@ class MqttClientSingle(object):
     __instance = None
     def __init__(self):
         if self._mattClient is None:
+            # 初始化mqtt
             self._mattClient = initMqttClient()
     pass
 

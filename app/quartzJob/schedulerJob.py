@@ -20,7 +20,7 @@ class Quartz(object):
 
     def __init__(self):
         if self.sched is None:
-            # 手动设置市区 避免在openWrt环境下报错
+            # 手动设置时区 避免在openWrt环境下报错
             self.sched = BackgroundScheduler(gconfig={'timezone': 'Asia/Shanghai'}, prefix=None)
         pass
 
@@ -77,6 +77,10 @@ class Quartz(object):
         pass
 
 
+
+
+
 if __name__ == '__main__':
+
     pass
 

@@ -1,6 +1,6 @@
 from flask import render_template, redirect, request, url_for, flash, session
+from app.models import User
 from . import auth
-from ..models import User
 import json
 
 @auth.before_request
@@ -11,7 +11,6 @@ def before_request():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    reponse = {}
     reponse["status"] = 0
     if request.method == 'POST':
         post_data = request.values

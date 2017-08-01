@@ -35,10 +35,6 @@ def postSensor():
 
     pass
 
-# 从服务器获取传感器数据 从而进行更新？
-def syncSensorFromRemote():
-    pass
-
 # 获取节点上所有的传感器数据
 def __getSyncSensor():
     response = {}

@@ -2,18 +2,22 @@
 # -*- coding: utf-8 -*-
 
 from peewee import *
+from app.main import configSingle
+import time
+from datetime import datetime
 
 db = SqliteDatabase('./test3.db')
 
 def initDb():
     db.create_tables([User, SensorData, SystemInfo, Sensor], safe=True)
+    User.createdDefaultAccount()
     db.close()
 
 class BaseModel(Model):
     class Meta:
         database = db
 
-# 用户信息
+# 用户信息模型
 class User(BaseModel):
     id = IntegerField(primary_key=True)
     account = CharField(max_length=20)
@@ -26,10 +30,29 @@ class User(BaseModel):
         user_instance = User()
         # pwd_hash = generate_password_hash(pwd)
         try:
-            user = user_instance.get(User.account == account and  User.pwd == pwd)
+            user = user_instance.get(User.account == account and User.pwd == pwd)
         except Exception:
             user = None
         return user
+
+    # 添加默认账号
+    @staticmethod
+    def createdDefaultAccount():
+        configInstance = configSingle.ConfigObj()
+        default_account = configInstance.config_obj.get("super_user", "default_account")
+        default_pwd = configInstance.config_obj.get("super_user", "default_pwd")
+        user = User.getUserByAccountAndPwd(default_account, default_pwd)
+        if user is not None:
+            return
+            pass
+        row = {
+            "account": default_account,
+            "pwd": default_pwd,
+            "pwd_hash": default_pwd,
+            "created_time": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        }
+        User.insert(row).execute()
+        pass
 
 # 传感器数据表
 class Sensor(BaseModel):

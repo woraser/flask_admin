@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Title:
-
 from flask import render_template, json, session, redirect, url_for, request
 from . import main
 from app.commonUtil import buildErr,buildSucc,buildNone
 from app.common.dbFactory import findOneByClsAndId
-from mainService import updateSensorByIdAndData,getDashboard, getSystemHistory,uploadConfigFile,getFileListFromUpload,downLoadFileFromServer, checkIsDownloaded
+from mainService import (
+    updateSensorByIdAndData,getDashboard, getSystemHistory,
+    uploadConfigFile,getFileListFromUpload,downLoadFileFromServer,
+    checkIsDownloaded
+)
 from app.models import Sensor
-import systemInfo,random,configSingle
+import systemInfo, random, configSingle
 import sys
 
 reload(sys)
@@ -34,7 +37,6 @@ def index():
 @main.route('/index', methods=['GET', 'POST'])
 def default():
     return redirect(url_for('main.index'))
-
 
 # 进入传感器管理页面
 @main.route('/sensorManger', methods=['GET'])
@@ -118,11 +120,6 @@ def getFileList():
             item["objectId"] = str(item["objectId"])
             item["isDownload"] = checkIsDownloaded(item["objectId"])
             pass
-        pass
-    except Exception:
-        fileList = []
-        pass
-    finally:
         response = {
             "data": fileList,
             "draw": post_data['draw'],
@@ -130,6 +127,17 @@ def getFileList():
             "recordsFiltered": fileObject["totalElements"],
         }
         return json.dumps(response)
+        pass
+    except Exception:
+        fileList = []
+        response = {
+            "data": fileList,
+            "draw": post_data['draw'],
+            "recordsTotal": 0,
+            "recordsFiltered": 0,
+        }
+        return json.dumps(response)
+        pass
     pass
 
 # 从远处服务器下载文件至本地
@@ -139,17 +147,16 @@ def downLoadFile(id):
         with open("app/static/file/{0}.ini".format(id), 'w') as f:
             downLoadFileFromServer(id, f)
             pass
-            return buildSucc("ok")
-        pass
+        return buildSucc("ok")
     except Exception:
         return buildErr("no")
-        pass
     pass
 
 # 覆盖配置文件 重启项目
 @main.route('/restartServer/<string:id>', methods=['GET'])
 def restartServerWithConfig(id):
     # reload config from /app/static/file/id.ini to config.ini
+    open("/mny/python-www/hash")
 
 
     # restart server
