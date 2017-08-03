@@ -50,16 +50,16 @@ class Quartz(object):
         # 添加系统任务
         system_time = config.get("system_conf", "system_job_time")
         system_job_time = system_time if isinstance(system_time, int) else 1
-        self.sched.add_job(recordSystemInfo, 'interval', seconds=int(system_job_time), id=recordSystemInfo.func_name)
+        self.sched.add_job(recordSystemInfo, 'interval', seconds=int(system_job_time), id=recordSystemInfo.func_name, max_instances=10)
         # 添加服务器数据同步任务
-        self.sched.add_job(postSensorData, 'interval', seconds=int(60),id=postSensorData.func_name)
+        self.sched.add_job(postSensorData, 'interval', seconds=int(60),id=postSensorData.func_name, max_instances=10)
         # 添加传感器采集任务
         # dht11 传感器
         sensorQuartz = SensorQuartz()
         activity_sensor = getActivitySensor()
         if activity_sensor is not None:
             for sensor in activity_sensor:
-                self.sched.add_job(getattr(sensorQuartz, sensor.job_name), 'interval', seconds=int(sensor.job_time),id=str(sensor.sensor_no))
+                self.sched.add_job(getattr(sensorQuartz, sensor.job_name), 'interval', seconds=int(sensor.job_time),id=str(sensor.sensor_no), max_instances=10)
                 pass
             pass
         return self.sched
@@ -76,11 +76,21 @@ class Quartz(object):
         self.sched.resume()
         pass
 
+    @staticmethod
+    def resumeJob():
+
+
+
+        pass
+
 
 
 
 
 if __name__ == '__main__':
+    for i in range(5):
+        print i
+
 
     pass
 

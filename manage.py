@@ -4,7 +4,6 @@ import os
 from flask import current_app
 from app.main.configSingle import ConfigObj
 
-
 # from app.models import User
 COV = None
 if os.environ.get('FLASK_COVERAGE'):
@@ -26,9 +25,9 @@ from flask_script import Manager
 app = create_app()
 manager = Manager(app)
 
-
 # start the app when execute command:python manage.py
 if __name__ == '__main__':
+
     # linux执行方法：python manage.py runserver --host 0.0.0.0
     # manager.run()
     # 避免debug模式下二次初始化数据 但是文件更新之后不会在刷新文件

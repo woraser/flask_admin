@@ -29,6 +29,7 @@ def create_app():
     configInstance.flushConfig()
 
     bootstrap.init_app(app)
+    # init quartz job
     quartz.addJobDynamic()
     quartz.startJob()
     # init db

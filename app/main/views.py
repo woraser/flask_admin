@@ -144,7 +144,7 @@ def getFileList():
 @main.route('/downloadFile/<string:id>', methods=['GET'])
 def downLoadFile(id):
     try:
-        with open("app/static/file/{0}.ini".format(id), 'w') as f:
+        with open("app/static/file/{filename}.ini".format(filename=id), 'w') as f:
             downLoadFileFromServer(id, f)
             pass
         return buildSucc("ok")
@@ -157,6 +157,7 @@ def downLoadFile(id):
 def restartServerWithConfig(id):
     # reload config from /app/static/file/id.ini to config.ini
     open("/mny/python-www/hash")
+
 
 
     # restart server
