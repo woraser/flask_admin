@@ -1,8 +1,8 @@
 #!/usr/bin/env python'
 # -*- coding: utf-8 -*-
 import os
-from flask import current_app
-from app.main.configSingle import ConfigObj
+
+from shell import unixScript
 
 # from app.models import User
 COV = None
@@ -23,6 +23,10 @@ from flask_script import Manager
 
 # app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 app = create_app()
+# 添加一些特殊路由 进行linux交互
+from shell import shell as shell_blueprint
+app.register_blueprint(shell_blueprint, url_prefix='/shell')
+
 manager = Manager(app)
 
 # start the app when execute command:python manage.py

@@ -31,7 +31,8 @@ class User(BaseModel):
         # pwd_hash = generate_password_hash(pwd)
         try:
             user = user_instance.get(User.account == account and User.pwd == pwd)
-        except Exception:
+        except Exception as err:
+            # err.message
             user = None
         return user
 

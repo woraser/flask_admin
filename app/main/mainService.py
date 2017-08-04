@@ -102,7 +102,7 @@ def downLoadFileFromServer(id, file):
 
 # 判断该文件是否已经下载
 def checkIsDownloaded(objectId):
-    fileDir = "app/static/file/{0}.ini".format(objectId)
+    fileDir = "configHistory/{0}.ini".format(objectId)
     if os.path.exists(fileDir):
         return True
         pass

@@ -11,6 +11,7 @@ def before_request():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    reponse = {}
     reponse["status"] = 0
     if request.method == 'POST':
         post_data = request.values
