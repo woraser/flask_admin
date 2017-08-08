@@ -13,6 +13,7 @@ from mainService import (
 from app.models import Sensor
 import systemInfo, random, configSingle
 import sys
+from shell import unixScript
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -156,10 +157,12 @@ def downLoadFile(id):
 @main.route('/restartServer/<string:id>', methods=['GET'])
 def restartServerWithConfig(id):
     # reload config from /app/static/file/id.ini to config.ini
-    open("/mny/python-www/hash")
-
-
-
-    # restart server
-    buildSucc("ok")
+    try:
+        unixScript.restartProject()
+    except Exception as err:
+        print err.message
+        pass
+    finally:
+        # restart server
+        return buildSucc("ok")
     pass

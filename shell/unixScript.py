@@ -27,7 +27,6 @@ def upgradeProject(dir=None):
 
 # 重启项目
 def restartProject():
-
     cmd_res = os.popen("ps | grep manage.py")
     for line in cmd_res:
         if "runserver" in line:
@@ -74,11 +73,6 @@ def receiveUpgradeApp():
         pass
     pass
 
-
-
-
 if __name__ == '__main__':
-
-
     pass
 

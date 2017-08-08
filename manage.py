@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 import os
 
-from shell import unixScript
-
 # from app.models import User
 COV = None
 if os.environ.get('FLASK_COVERAGE'):
