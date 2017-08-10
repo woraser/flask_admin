@@ -11,8 +11,8 @@ from mainService import (
     checkIsDownloaded
 )
 from app.models import Sensor
-import systemInfo, random, configSingle
-import sys
+import systemInfo, configSingle
+import sys,random
 from shell import unixScript
 
 reload(sys)

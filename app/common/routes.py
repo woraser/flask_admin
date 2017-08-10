@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Tip:通用模块
+# Tip:通用模块 通用路由
 from flask import jsonify, request, current_app, url_for, session, redirect
 from . import common
 from dbFactory import getTablePageByCls

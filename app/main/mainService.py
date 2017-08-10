@@ -34,7 +34,7 @@ def updateSensorByIdAndData(id=None, update_data=None):
     return Sensor.update(update_data).where(Sensor.id == id).execute()
 
 
-# build dict of dashboard for index
+# build dict of dashboard for index.html
 # 组装首页面板数据
 def getDashboard():
     configInstance = configSingle.ConfigObj()
@@ -91,6 +91,7 @@ def getFileListFromUpload(offset, pagesize):
     return json.loads(res)
     pass
 
+# 根据id从服务器上下载配置文件
 def downLoadFileFromServer(id, file):
     configInstance = configSingle.ConfigObj()
     config_obj = configInstance.config_obj

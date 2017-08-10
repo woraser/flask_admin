@@ -16,18 +16,18 @@ def postSensorData():
     # print "postSensorData"
     domain_address = ConfigObj().config_obj.get("internet_conf", 'remote_address')
     post_url = "/".join(["http:/", domain_address, "services/test.lua"])
-    post_data = __getSyncSensorData()
-    post_array, id_array = __buildPostData(post_data)
+    post_data = getSyncSensorData()
+    post_array, id_array = buildPostData(post_data)
     if post_array and id_array:
         res = requests.post(post_url, json.dumps({"post_data": post_array}))
         if res.content and json.loads(res.content)["status"] == 1:
-            __updateSensorDataStatus(id_array)
+            updateSensorDataStatus(id_array)
             pass
     pass
 
 #  推送传感器数据
 def postSensor():
-    sensor_data = __getSyncSensor()
+    sensor_data = getSyncSensor()
     # 同步传感器数据
     if sensor_data:
         requests.post("url", "")
@@ -36,7 +36,7 @@ def postSensor():
     pass
 
 # 获取节点上所有的传感器数据
-def __getSyncSensor():
+def getSyncSensor():
     response = {}
     sensor_setting = queryTableByCls(Sensor, limit=200)
     if sensor_setting:
@@ -46,17 +46,17 @@ def __getSyncSensor():
 
 
 # 获取未发送的传感器采集数据 每次数量：200
-def __getSyncSensorData(limit=100):
-    cursor = __getUnPostSensorData(limit)
+def getSyncSensorData(limit=100):
+    cursor = getUnPostSensorData(limit)
     return cursor
     pass
 
 @catchDbException
-def __getUnPostSensorData(limit):
+def getUnPostSensorData(limit):
     return SensorData.select().where(SensorData.is_post==False).order_by(SensorData.id.desc()).limit(limit)
 
 # 构建传感器采集数据的 推送结构
-def __buildPostData(data=None):
+def buildPostData(data=None):
     post_array = []
     id_array = []
     if data:
@@ -74,7 +74,7 @@ def __buildPostData(data=None):
 
 
 # 构建传感器数据的 推送结构
-def __buildSensorPost(data=None):
+def buildSensorPost(data=None):
     post_array = []
     id_array = []
     if data:
@@ -96,6 +96,6 @@ def __buildSensorPost(data=None):
     pass
 
 # 传感器采集数据推送完成之后 修改推送状态 避免二次推送
-def __updateSensorDataStatus(id_array=None):
+def updateSensorDataStatus(id_array=None):
     SensorData.update(is_post=True).where(SensorData.id << id_array).execute()
     pass

@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# author:Charles.chen
+# createDate:2017/6/28
+# Title:权限控制器
+# Tip:
+
 from flask import render_template, redirect, request, url_for, flash, session
 from app.models import User
 from . import auth
@@ -19,8 +26,9 @@ def login():
         login_pwd = str(post_data['login_pwd'])
         user = User.getUserByAccountAndPwd(login_account, login_pwd)
         if user is not None:
-            # login_user(user, True)
             session.setdefault('is_login', True)
+            # json在转换date类型的时候会报错
+            user._data["created_time"] = None
             session.setdefault('user', json.dumps(user._data))
             reponse['status'] = 1
             reponse['data'] = '/index'

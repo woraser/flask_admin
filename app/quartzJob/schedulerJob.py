@@ -76,17 +76,6 @@ class Quartz(object):
         self.sched.resume()
         pass
 
-    @staticmethod
-    def resumeJob():
-
-
-
-        pass
-
-
-
-
-
 if __name__ == '__main__':
     for i in range(5):
         print i

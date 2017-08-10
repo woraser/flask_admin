@@ -27,8 +27,10 @@ class MqttClientSingle(object):
     def mattClient(self):
         return self._mattClient
 
+# 初始化mqtt连接
 def initMqttClient():
     mqtt = Mqtt()
+    # 模拟app上下文实现
     app = App()
     configInstance = configSingle.ConfigObj()
     mqtt_host = configInstance.config_obj.get("mqtt_conf", "MQTT_BROKER_URL")
@@ -39,7 +41,6 @@ def initMqttClient():
     mqtt.init_app(app)
     return mqtt
     pass
-    pass
 
 # init app class for config
 class App(object):
@@ -47,7 +48,6 @@ class App(object):
     def __init__(self):
         self.config = dict
         pass
-
     pass
 
 

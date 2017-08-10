@@ -44,9 +44,7 @@ def updateNodeConfig(dict=None):
     configInstance.config_obj.set("system_conf", "full_name", dict["full_name"]),
     configInstance.config_obj.set("internet_conf", "remote_address", dict["remote_address"])
     configInstance.flushConfig()
-
     pass
-
 
 
 if __name__ == '__main__':
