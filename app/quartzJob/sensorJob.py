@@ -3,7 +3,7 @@
 # author:Charles.chen
 # createDate:2017/6/13
 # Title:传感器定时采集
-# Tip:运行指令 jslinux dht11.js
+# Tip:运行指令 jslinux dht11.js 测试用
 from app.common.dbFactory import insertSensorCollect
 from app.models import SensorData
 import random

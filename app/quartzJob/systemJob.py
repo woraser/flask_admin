@@ -3,7 +3,7 @@
 # author:Charles.chen
 # createDate:2017/6/14
 # Title:获取系统数据 包括cpu使用率和内存使用率等
-# Tip:
+# Tip: 系统级别脚本
 from ..main import systemInfo
 from datetime import datetime
 from ..common.dbFactory import insertByCls

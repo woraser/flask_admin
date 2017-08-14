@@ -41,11 +41,9 @@ class Quartz(object):
     def startJob(self):
         self.sched.start()
 
+    # 添加默认定时任务
     def addJobDynamic(self):
         configInstance = configSingle.ConfigObj()
-        base_dir = configInstance.config_obj.get("project_conf", "base_dir")
-        config_path = os.path.join(base_dir, "config.ini")
-        # 初始化任务器 设置默认时区
         config = configInstance.config_obj
         # 添加系统任务
         system_time = config.get("system_conf", "system_job_time")
