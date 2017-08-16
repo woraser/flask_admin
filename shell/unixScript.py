@@ -26,14 +26,27 @@ def upgradeProject(dir=None):
 
 
 # 重启项目
+# 使用supervisorctl 来管理进程
 def restartProject():
-    cmd_res = os.popen("ps | grep manage.py")
-    for line in cmd_res:
-        if "runserver" in line:
-            os.popen("kill -9 {pid}".format(pid=line.split()[0]))
+    isRunning= False
+    configInstance = configSingle.ConfigObj()
+    base_dir = configInstance.config_obj.get("project_conf", "base_dir")
+    # 先判断是否存在使用supervisorctl进程 若存在 则重启 反之则新建
+    checkRunning_shell = os.popen("ps | grep supervisord")
+    for line in checkRunning_shell:
+        if "{supervisord} /usr/bin/python2.7" in line:
+            isRunning = True
+            break
+        pass
+    pass
+    if isRunning is True:
+        restart_shell = "supervisorctl -c supervisor.conf reload"
+        shell_script = "cd {path} && cd ./.. &&{restart}".format(path=base_dir, restart=restart_shell)
+        os.popen(shell_script)
         pass
     else:
-        os.popen("cd /mnt/python-www/flask_admin/ && python manage.py runserver --host 0.0.0.0")
+        start_shell = "supervisord -c supervisor.conf"
+        os.popen("cd {path} && cd ./.. && {start}".format(path=base_dir, start=start_shell))
         pass
     pass
 
