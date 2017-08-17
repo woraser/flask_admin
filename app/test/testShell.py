@@ -5,13 +5,17 @@
 # Title:
 # Tip:
 import os
+#
+# try:
+#     restart_shell = "supervisorctl -c supervisor.conf reload"
+#     shell_script = "{restart}".format(restart=restart_shell)
+#     os.popen(shell_script)
+#     pass
+# except Exception as e:
+#     start_shell = "supervisord -c supervisor.conf"
+#     os.popen("{start}".format(start=start_shell))
+#     pass
 
-try:
-    restart_shell = "supervisorctl -c supervisor.conf reload"
-    shell_script = "{restart}".format(restart=restart_shell)
-    os.popen(shell_script)
-    pass
-except Exception as e:
-    start_shell = "supervisord -c supervisor.conf"
-    os.popen("{start}".format(start=start_shell))
+if __name__ == '__main__':
+    print "ookk"
     pass

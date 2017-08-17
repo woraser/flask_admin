@@ -1,4 +1,5 @@
-# coding=utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import urllib2, json
 from poster.encode import multipart_encode
 from poster.streaminghttp import register_openers
