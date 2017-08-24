@@ -3,6 +3,7 @@
 import importlib, json
 from decoratorUtil import catchDbException
 from collections import Iterable
+from datetime import datetime
 
 # 将peewee查询对象转化为dict
 def convertDbObjToDict(objs, cls):
@@ -83,13 +84,19 @@ def buildNone():
 def convertObj():
     pass
 
-# 获取当前时间
-def getNow():
 
-    pass
+# 获取当前时间 str
+def getNowStr():
+    return str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+# 获取当前时间 date
+def getNowDate():
+    return datetime.now()
+
+# 获取当前时间 str 自定义时间格式
+def getNowFormat(fm="%Y-%m-%d %H:%M:%S"):
+    return str(datetime.now().strftime(fm).format(fm=fm))
 
 def getScore():
-
-
     pass
 

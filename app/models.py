@@ -9,7 +9,7 @@ from datetime import datetime
 db = SqliteDatabase('./test3.db')
 
 def initDb():
-    db.create_tables([User, SensorData, SystemInfo, Sensor], safe=True)
+    db.create_tables([User, SensorData, SystemInfo, Sensor, RemoteCommand], safe=True)
     User.createdDefaultAccount()
     db.close()
 
@@ -85,3 +85,10 @@ class SystemInfo(BaseModel):
     cpu_usage = FloatField(verbose_name='CPU使用率')
     ram_usage = FloatField(verbose_name='内存使用率')
     collect_time = CharField(verbose_name='采集时间', max_length=50)
+
+# 服务端的命令
+class RemoteCommand(BaseModel):
+    id = IntegerField(primary_key=True)
+    json_text = FloatField(verbose_name='json字符串', default='')
+    created_time = CharField(verbose_name='获取时间', max_length=50)
+    is_executed = BooleanField(verbose_name='是否已被执行', default=False)

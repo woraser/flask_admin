@@ -5,23 +5,30 @@
 # Title:远程同步脚本，用于同步传感器数据(db:Sensor)，配置文件
 # Tip:
 from ..common.dbFactory import queryTableByCls
-from ..models import SensorData, Sensor
+from ..models import SensorData, Sensor, RemoteCommand
 from ..decoratorUtil import catchDbException
-from ..commonUtil import convertDbObjToDict
+from ..commonUtil import convertDbObjToDict, getNowStr
 from ..main.configSingle import ConfigObj
 import requests, json
 
 # 推送传感器采集数据
 def postSensorData():
-    # print "postSensorData"
+    print "postSensorData"
+    s = requests.session()
+    s.keep_alive = False
     domain_address = ConfigObj().config_obj.get("internet_conf", 'remote_address')
     post_url = "/".join(["http:/", domain_address, "services/test.lua"])
     post_data = getSyncSensorData()
     post_array, id_array = buildPostData(post_data)
     if post_array and id_array:
-        res = requests.post(post_url, json.dumps({"post_data": post_array}))
+        # 使用{'Connection': 'close'}来处理ConnectionError: HTTPConnectionPool(): Max retries exceeded with url问题
+        res = requests.post(post_url, json.dumps({"post_data": post_array}), headers={'Connection': 'close'})
         if res.content and json.loads(res.content)["status"] == 1:
             updateSensorDataStatus(id_array)
+            pass
+        # 添加远程命令
+        if res.content and json.loads(res.content)["command"]:
+            handleCommand(json.loads(res.content)["command"])
             pass
     pass
 
@@ -98,4 +105,42 @@ def buildSensorPost(data=None):
 # 传感器采集数据推送完成之后 修改推送状态 避免二次推送
 def updateSensorDataStatus(id_array=None):
     SensorData.update(is_post=True).where(SensorData.id << id_array).execute()
+    pass
+
+
+# 处理请求返回的command命令
+# return None/True/False
+def handleCommand(command=None):
+    if command is None:
+        return
+    insert_row = {
+        "json_text": command,
+        "created_time": getNowStr(),
+        "is_executed": False
+    }
+    try:
+        RemoteCommand.insert(insert_row).execute()
+        res = True
+        pass
+    except Exception:
+        res = False
+        pass
+    return res
+    pass
+
+# 执行远程command
+# return
+# command={}
+#
+#
+#
+
+def executeCommand(command=None):
+    command_dict = json.loads(command)
+    command = {
+        "id": "",
+        "type": "",
+        "sensor_no": "",
+        "action": ""
+    }
     pass

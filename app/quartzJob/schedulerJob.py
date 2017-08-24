@@ -50,7 +50,7 @@ class Quartz(object):
         system_job_time = system_time if isinstance(system_time, int) else 1
         self.sched.add_job(recordSystemInfo, 'interval', seconds=int(system_job_time), id=recordSystemInfo.func_name, max_instances=10)
         # 添加服务器数据同步任务
-        self.sched.add_job(postSensorData, 'interval', seconds=int(60),id=postSensorData.func_name, max_instances=10)
+        self.sched.add_job(postSensorData, 'interval', seconds=int(1), id=postSensorData.func_name, max_instances=10)
         # 添加传感器采集任务
         # dht11 传感器
         sensorQuartz = SensorQuartz()
